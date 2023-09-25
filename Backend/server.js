@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const router = express.Router();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 require('dotenv').config();
 
 
@@ -27,7 +27,7 @@ const authRoutes = require('./Routes/UserRoutes');
 const settingsRoutes = require('./Routes/SettingsRoutes');
 
 
-
+app.use(cors());
 
 
 // Utilisation des routes pour les camions
@@ -46,7 +46,7 @@ app.use('/settings', settingsRoutes);
 
 
 
-const PORT = 3000;
+const PORT = 4000;
 app.listen(PORT, () => {
     console.log(`Server started on http://localhost:${PORT}`);
 });

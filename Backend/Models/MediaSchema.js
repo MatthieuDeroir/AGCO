@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const MediaSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true
-    },
     type: {
         type: String,
         required: true,
@@ -18,6 +13,7 @@ const MediaSchema = new mongoose.Schema({
     },
     duration: {
         type: Number,
+        default: 30,
         required: true
     }
 });

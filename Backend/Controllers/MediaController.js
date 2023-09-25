@@ -1,10 +1,55 @@
-const Media = require('../Models/Media');
+const Media = require('../Models/MediaSchema');
 const fs = require('fs');
 const path = require('path');
+const ffmpeg = require('fluent-ffmpeg');
+const mime = require('mime');
 
 exports.uploadMedia = async (req, res) => {
-    // TODO: Ajoutez la logique d'upload ici
+    try {
+        // Supposons que vous ayez le fichier dans req.file.path
+        const filePath = req.file.path;
+        const mimeType = mime.getType(filePath);
+        let type;
+        let duration = 0;
+
+        if (mimeType.startsWith('image')) {
+            type = 'image';
+        } else if (mimeType.startsWith('video')) {
+            type = 'video';
+        } else {
+            fs.unlinkSync(filePath); // Supprimer le fichier s'il n'est pas du bon type
+            return res.status(400).send('Invalid media type. Only images and videos are allowed.');
+        }
+
+        if (type === 'video') {
+            await new Promise((resolve, reject) => {
+                ffmpeg.ffprobe(filePath, (err, metadata) => {
+                    if (err) return reject(err);
+                    duration = Math.floor(metadata.format.duration);
+                    resolve();
+                });
+            });
+        }
+        else {
+            duration = 30;
+        }
+
+        // Créer une nouvelle instance de Media avec le type, la durée, et le chemin
+        const media = new Media({
+            type,
+            duration,
+            path: filePath, // ou un autre chemin basé sur votre logique de stockage
+        });
+
+        await media.save();
+        res.status(201).send(media);
+
+    } catch (error) {
+        console.error('Error uploading media:', error);
+        res.status(500).send('Error uploading media.');
+    }
 };
+
 
 exports.getAllMedia = async (req, res) => {
     try {

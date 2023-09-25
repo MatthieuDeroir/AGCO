@@ -8,6 +8,10 @@ const SettingsSchema = new mongoose.Schema({
     finVeille: {
         type: String,
         required: true
+    },
+    dureeDefilement: {
+        type: Number,
+        default: 30
     }
 });
 

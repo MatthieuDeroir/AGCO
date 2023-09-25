@@ -2,6 +2,7 @@ const Camion = require('../Models/CamionSchema');
 
 exports.addCamion = async (req, res) => {
     try {
+        console.log("CamionController.addCamion: req.body:", req.body);
         const camion = new Camion(req.body);
         await camion.save();
         res.status(201).send(camion);
@@ -12,12 +13,13 @@ exports.addCamion = async (req, res) => {
 
 exports.getCamions = async (req, res) => {
     try {
-        const camions = await Camion.find().sort({ date_appel: 1 });
+        const camions = await Camion.find().sort({ date_appel: -1 }); // -1 pour un tri en ordre décroissant
         res.status(200).send(camions);
     } catch (error) {
         res.status(500).send(error.message);
     }
 };
+
 
 exports.deleteCamion = async (req, res) => {
     try {

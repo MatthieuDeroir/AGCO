@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# Documentation de l'Application Truck Display
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
+L'Application Truck Display est une application développée avec React et Electron, destinée à gérer les affichages de camions et de médias.
 
-## Available Scripts
+## Table des Matières
+1. [Installation](#installation)
+2. [Architecture](#architecture)
+3. [Composants Principaux](#composants-principaux)
+4. [Utilisation](#utilisation)
+5. [Déploiement](#déploiement)
 
-In the project directory, you can run:
+## Installation <a name="installation"></a>
+Pour installer l'application, suivez les étapes suivantes:
+```sh
+# Clonez le dépôt
+git clone https://github.com/MatthieuDeroir/AGCO.git
 
-### `npm start`
+# Accédez au dossier du projet
+cd AGCO
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Installez les dépendances
+npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Démarrez l'application
+npm start
+```
 
-### `npm test`
+# Architecture <a name="architecture"></a>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+L'architecture de l'application est divisée en plusieurs parties:
 
-### `npm run build`
+    - React Components: Ils définissent l'interface d'affichage et la logique de l'application.
+    - Electron Main Process: Il sert de backend et gère les fenêtres de l'application.
+    - Services: Ils interagissent avec l'API pour récupérer, envoyer et manipuler les données.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Composants Principaux <a name="composants-principaux"></a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* App
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Le composant racine de l'application, il gère l'état global de l'application et contient les composants TruckList et MediaDisplay.
 
-### `npm run eject`
+* TruckList
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Il gère l'affichage de la liste des camions.
+* MediaDisplay
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Il gère l'affichage des médias.
+# Utilisation <a name="utilisation"></a>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+L'application est intuitive et facile à utiliser. Les administrateurs ont la possibilité de gérer les camions et les médias via les points d'accès de l'API.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Déploiement <a name="déploiement"></a>
 
-## Learn More
+Pour déployer l'application, exécutez les commandes suivantes:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+````sh
 
-### Code Splitting
+# Construisez l'application
+npm run build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Emballez l'application avec Electron
+npm run package
 
-### Analyzing the Bundle Size
+````
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+L'application emballée sera disponible dans le dossier release.
 
-### Making a Progressive Web App
+# Conclusion
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+L'Application Truck Display permet une gestion efficace des affichages de camions et de médias, avec une interface utilisateur intuitive et des fonctionnalités robustes.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

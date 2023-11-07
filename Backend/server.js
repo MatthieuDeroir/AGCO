@@ -10,6 +10,8 @@ const app = express();
 // Middleware pour parser les requêtes JSON
 app.use(bodyParser.json());
 
+app.use(cors());
+
 // Connexion à MongoDB
 mongoose.connect('mongodb://localhost:27017/truckDisplay', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
@@ -27,7 +29,6 @@ const authRoutes = require('./Routes/UserRoutes');
 const settingsRoutes = require('./Routes/SettingsRoutes');
 
 
-app.use(cors());
 
 
 // Utilisation des routes pour les camions

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test API</title>
+</head>
+
+<body>
+<h1>Test des fonctionnalités de l'API Truck Display</h1>
+
+<section>
+    <h2>Authentification</h2>
+    <form id="signupForm">
+        <label for="signupUsername">Nom d'utilisateur:</label>
+        <input type="text" id="signupUsername" name="username" required>
+        <label for="signupPassword">Mot de passe:</label>
+        <input type="password" id="signupPassword" name="password" required>
+        <button type="button" onclick="signup()">Inscription</button>
+    </form>
+
+    <form id="signinForm">
+        <label for="signinUsername">Nom d'utilisateur:</label>
+        <input type="text" id="signinUsername" name="username" required>
+        <label for="signinPassword">Mot de passe:</label>
+        <input type="password" id="signinPassword" name="password" required>
+        <button type="button" onclick="signin()">Connexion</button>
+    </form>
+</section>
+
+<section>
+    <h2>Camions</h2>
+    <button onclick="listTrucks()">Lister tous les camions</button>
+    <div id="trucksList"></div>
+</section>
+<section>
+    <h2>Médias</h2>
+    <button onclick="listMedias()">Lister tous les médias</button>
+    <div id="mediasList"></div>
+</section>
+
+<section>
+    <h2>Paramètres de veille</h2>
+    <button onclick="getSettings()">Obtenir les paramètres actuels de veille</button>
+    <div id="settingsDisplay"></div>
+</section>
+
+<script>
+    uri = 'http://localhost:4000';
+    async function signup() {
+        try {
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+            const response = await fetch(`${uri}/auth/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({username, password})
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                alert('Inscription réussie');
+            } else {
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de l’inscription', error);
+        }
+    }
+
+    async function signin() {
+        try {
+            const username = document.getElementById('signinUsername').value;
+            const password = document.getElementById('signinPassword').value;
+            const response = await fetch(`${uri}/auth/signin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({username, password})
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                alert('Connexion réussie');
+            } else {
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la connexion', error);
+        }
+    }
+
+    async function listTrucks() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${uri}/camions`, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+
+            if (response.ok) {
+                const trucks = await response.json();
+                const trucksList = document.getElementById('trucksList');
+                trucksList.innerHTML = ""; // Clear previous trucks
+                trucks.forEach(truck => {
+                    const truckDiv = document.createElement('div');
+                    truckDiv.textContent = `ID: ${truck.id}, Transporteur: ${truck.transporteur}, Immatriculation: ${truck.immatriculation}, Quai: ${truck.quai}, Date Appel: ${truck.date_appel}`;
+                    trucksList.appendChild(truckDiv);
+                });
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des camions', error);
+        }
+    }
+
+    async function listMedias() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${uri}/media-management`, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+
+            if (response.ok) {
+                const medias = await response.json();
+                const mediasList = document.getElementById('mediasList');
+                mediasList.innerHTML = ""; // Clear previous medias
+                medias.forEach(media => {
+                    const mediaDiv = document.createElement('div');
+                    mediaDiv.textContent = `ID: ${media.id}, Type: ${media.type}, Path: ${media.path}`;
+                    mediasList.appendChild(mediaDiv);
+                });
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des médias', error);
+        }
+    }
+
+    async function getSettings() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${uri}/settings`, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+
+            if (response.ok) {
+                const settings = await response.json();
+                const settingsDisplay = document.getElementById('settingsDisplay');
+                settingsDisplay.innerHTML = ""; // Clear previous settings
+                const settingsDiv = document.createElement('div');
+                settingsDiv.textContent = `Début Veille: ${settings.debutVeille}, Fin Veille: ${settings.finVeille}, Durée Défilement: ${settings.dureeDefilement}`;
+                settingsDisplay.appendChild(settingsDiv);
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des paramètres de veille', error);
+        }
+    }
+</script>
+</body>
+
+</html>

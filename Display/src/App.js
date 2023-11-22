@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import TruckList from "./Components/TruckList";
 import MediaDisplay from "./Components/MediaDisplay";
 import dataService from "./services/dataService";
@@ -32,38 +32,32 @@ function App() {
   useEffect(() => {
     const timer = setInterval(() => {
       setMediaIndex((prevIndex) => {
- 
-        if (prevIndex >= medias.length - 1 ) {
-          setIntervalDuration(2000); // Set duration to 10 seconds for trucks
-          setTruckIndex((prevTruckIndex) => {
-            console.log("Previous truck index:", prevTruckIndex);
-            if (prevTruckIndex >= trucks.length - 10) {
-                console.log("Looping back to start"+ prevIndex);
-              return 0; // Loop back to start
-            } else {
-                console.log("Moving to next group of trucks"+ prevIndex);
-              return prevTruckIndex + 10; // Move to next group of trucks
-            }
-          });
-          console.log("Moving to trucks"+ prevIndex);
-          return -1;  // Loop back to show trucks
+        if (prevIndex >= medias.length - 1 || prevIndex === -1) {
+          // Calcul du temps total à passer sur tous les camions
+          const totalTruckTime = Math.ceil(trucks.length / 10) * 2000; // 10 seconds for each set of 10 trucks
+          setIntervalDuration(totalTruckTime); // Set interval duration to totalTruckTime
+
+          return 0; // Reset mediaIndex to 0
         } else {
-            console.log("Moving to next media"+ prevIndex);
-          setIntervalDuration(medias[prevIndex + 1].duration * 1000); // Set duration to media duration
+          // Otherwise, advance to the next media
+          if (medias.length > 0 && prevIndex + 1 < medias.length) {
+            setIntervalDuration(medias[prevIndex + 1].duration * 1000); // Set interval duration to the duration of the media
+          }
           return prevIndex + 1;
         }
       });
     }, intervalDuration);
 
+    // Clean up the interval when the component unmounts
     return () => {
       clearInterval(timer);
     };
-  }, [medias, intervalDuration, trucks]);
+  }, [medias, intervalDuration, trucks]); // Add trucks to dependency array
 
   return (
     <div className="App">
       {mediaIndex === -1 ? (
-        <TruckList trucks={trucks.slice(truckIndex, truckIndex + 10)} />
+        <TruckList trucks={trucks} />
       ) : (
         <MediaDisplay media={medias[mediaIndex]} />
       )}

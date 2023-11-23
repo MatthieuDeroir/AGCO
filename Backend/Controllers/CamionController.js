@@ -10,6 +10,7 @@ exports.addCamion = async (req, res) => {
         res.status(201).send(camion);
     } catch (error) {
         res.status(400).send(error.message);
+        console.log("CamionController.addCamion: error:", error.message);
     }
 };
 

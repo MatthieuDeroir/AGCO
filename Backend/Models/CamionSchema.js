@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 
 const CamionSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     immatriculation: {
         type: String,
         required: true,

@@ -4,7 +4,7 @@ exports.addCamion = async (req, res) => {
     try {
         console.log("CamionController.addCamion: req.body:", req.body);
         // req.body must be converted to a JSON object
-        const camionjson = JSON.parse(req.body.camion);
+        const camionjson = JSON.parse(req.body);
         const camion = new Camion(camionjson);
         await camion.save();
         res.status(201).send(camion);

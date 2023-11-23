@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './TruckList.css';
 
-function TruckList({trucks }) {
+function TruckList({trucks, duration }) {
     const [currentTruckIndex, setCurrentTruckIndex] = useState(0);
     const trucksPerPage = 10; // Change this to the number of trucks you want to show at once
+
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -14,10 +15,13 @@ function TruckList({trucks }) {
                 }
                 return newIndex;
             });
-        }, 2000); // Change this to the amount of time you want to wait between changes
+        }, duration * 1000);
 
         return () => clearInterval(timer); // Clean up the interval on unmount
-    }, [trucks.length]);
+    }, [trucks ? trucks.length : 0]);
+
+    if (!trucks || trucks.length === 0) return null;
+
 
     const displayedTrucks = trucks.slice(currentTruckIndex, currentTruckIndex + trucksPerPage);
 

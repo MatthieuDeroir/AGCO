@@ -3,7 +3,8 @@ const Camion = require('../Models/CamionSchema');
 exports.addCamion = async (req, res) => {
     try {
         console.log("CamionController.addCamion: req.body:", req.body);
-        const camion = new Camion(req.body);
+        const camionjson = JSON.stringify(req.body);
+        const camion = new Camion(camionjson);
         await camion.save();
         res.status(201).send(camion);
     } catch (error) {

@@ -12,7 +12,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=3000 && react-scripts start",
     "electron": "ELECTRON_START_URL=http://localhost:3000 electron .",
     "build": "electron-builder",
     "test": "react-scripts test",

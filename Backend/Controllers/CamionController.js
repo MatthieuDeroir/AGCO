@@ -13,7 +13,7 @@ exports.addCamion = async (req, res) => {
 
 exports.getCamions = async (req, res) => {
     try {
-        const camions = await Camion.find().sort({ date_appel: -1 }); // -1 pour un tri en ordre décroissant
+        const camions = await Camion.find().sort({ date_appel: -1 }); 
         res.status(200).send(camions);
     } catch (error) {
         res.status(500).send(error.message);

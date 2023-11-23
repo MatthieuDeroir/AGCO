@@ -3,14 +3,12 @@ const Camion = require('../Models/CamionSchema');
 exports.addCamion = async (req, res) => {
     try {
         console.log("CamionController.addCamion: req.body:", req.body);
-        // req.body must be converted to a JSON object
-        const camionjson = JSON.parse(req.body);
-        const camion = new Camion(camionjson);
+
+        const camion = new Camion(req.body);
         await camion.save();
         res.status(201).send(camion);
     } catch (error) {
         res.status(400).send(error.message);
-        console.log("CamionController.addCamion: error:", error.message);
     }
 };
 

@@ -12,10 +12,6 @@ const SettingsSchema = new mongoose.Schema({
     dureeDefilement: {
         type: Number,
         default: 30
-    },
-    date: {
-        type: Date,
-        default: Date.now
     }
 });
 

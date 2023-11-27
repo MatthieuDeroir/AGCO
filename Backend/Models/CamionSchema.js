@@ -2,28 +2,21 @@ const mongoose = require('mongoose');
 
 
 const CamionSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true
-    },
-    transporteur: {
-        type: String,
-        required: true,
-        trim: true,
-        maxlength: 13
-
-    },
     immatriculation: {
         type: String,
         required: true,
         trim: true,
         maxlength: 8
     },
-    quai:{
-        type: Number,
+    action: {
+        type: String,
         required: true,
-        maxlength: 3
+        enum: ['go', 'wait']
+    },
+    destination: {
+        type:String,
+        required: true,
+        enum: ['accueil', 'balance']
     },
     date_appel: {
         type: Date,

@@ -29,16 +29,22 @@ const authRoutes = require('./Routes/UserRoutes');
 const settingsRoutes = require('./Routes/SettingsRoutes');
 
 
+
+
 // Utilisation des routes pour les camions
-app.use('/api/camions', camionRoutes);
+app.use('/camions', camionRoutes);
 // Utilisation des routes pour les médias
-app.use('/api/media-management', mediaRoutes);
+app.use('/media-management', mediaRoutes);
 // Route statique pour les médias
-app.use('/api/media', express.static('media'));
+app.use('/media', express.static('media'));
 // Utilisation des routes pour l'authentification
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 // Utilisation des routes pour les paramètres
-app.use('/api/settings', settingsRoutes);
+app.use('/settings', settingsRoutes);
+
+
+
+
 
 
 const PORT = 4000;

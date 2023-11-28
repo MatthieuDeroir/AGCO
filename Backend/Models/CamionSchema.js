@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 
+
 const CamionSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     transporteur: {
         type: String,
         required: true,
         trim: true,
         maxlength: 13
+
     },
     immatriculation: {
         type: String,
@@ -13,10 +20,9 @@ const CamionSchema = new mongoose.Schema({
         trim: true,
         maxlength: 8
     },
-    quai: {
-        type: String,
+    quai:{
+        type: Number,
         required: true,
-        trim: true,
         maxlength: 3
     },
     date_appel: {

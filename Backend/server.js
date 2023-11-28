@@ -10,8 +10,10 @@ const app = express();
 // Middleware pour parser les requêtes JSON
 app.use(bodyParser.json());
 
+app.use(cors());
+
 // Connexion à MongoDB
-mongoose.connect('mongodb://localhost:27017/truckDisplay', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://127.0.0.1:27017/truckDisplay', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB', err));
 
@@ -27,23 +29,16 @@ const authRoutes = require('./Routes/UserRoutes');
 const settingsRoutes = require('./Routes/SettingsRoutes');
 
 
-app.use(cors());
-
-
 // Utilisation des routes pour les camions
-app.use('/camions', camionRoutes);
+app.use('/api/camions', camionRoutes);
 // Utilisation des routes pour les médias
-app.use('/media-management', mediaRoutes);
+app.use('/api/media-management', mediaRoutes);
 // Route statique pour les médias
-app.use('/media', express.static('media'));
+app.use('/api/media', express.static('media'));
 // Utilisation des routes pour l'authentification
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 // Utilisation des routes pour les paramètres
-app.use('/settings', settingsRoutes);
-
-
-
-
+app.use('/api/settings', settingsRoutes);
 
 
 const PORT = 4000;

@@ -13,9 +13,9 @@ function MediaDisplay({ media }) {
         <div className="media-container">
             {media ? (
                 media.type === 'image' ? (
-                    <img src={media.path} alt="Media" />
+                    <img src={process.env.MEDIA_PATH + media.path} alt="Media" />
                 ) : (
-                    <video src={media.path} autoPlay muted />
+                    <video src={process.env.MEDIA_PATH + media.path} autoPlay muted />
                 )
             ) : (
                 <div className="no-media">No media available</div>

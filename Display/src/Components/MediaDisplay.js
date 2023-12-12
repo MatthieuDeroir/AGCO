@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import './MediaDisplay.css';
+require('dotenv').config();
+
+
 
 // {
 //     {media.type === 'image' ? (
@@ -8,14 +11,15 @@ import './MediaDisplay.css';
 //         <video src={media.path} autoPlay muted />
 //     )}}
 // : <div
-function MediaDisplay({ media }) {
+function MediaDisplay({media}) {
+    const MEDIA_PATH = 'http://192.168.100.65:4000/';
     return (
         <div className="media-container">
             {media ? (
                 media.type === 'image' ? (
-                    <img src={process.env.MEDIA_PATH + media.path} alt="Media" />
+                    <img src={ MEDIA_PATH + media.path} alt="Media"/>
                 ) : (
-                    <video src={process.env.MEDIA_PATH + media.path} autoPlay muted />
+                    <video src={MEDIA_PATH + media.path} autoPlay muted/>
                 )
             ) : (
                 <div className="no-media">No media available</div>

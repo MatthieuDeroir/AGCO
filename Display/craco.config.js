@@ -1,9 +1,15 @@
 const path = require('path');
 const buffer = require("buffer");
+const webpack = require('webpack');
 
 module.exports = {
     webpack: {
         configure: (webpackConfig, {env, paths}) => {
+            const definePlugin = new webpack.DefinePlugin({
+                'process.env': JSON.stringify(process.env)
+            });
+
+            webpackConfig.plugins.push(definePlugin);
             // Adding an alias for '@components'
             webpackConfig.resolve.alias = {
                 ...webpackConfig.resolve.alias,

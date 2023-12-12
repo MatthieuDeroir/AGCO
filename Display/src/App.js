@@ -4,9 +4,9 @@ import MediaDisplay from "./Components/MediaDisplay";
 import dataService from "./services/dataService";
 import './App.css';
 
-const DebugInfo = ({ mediaIndex, intervalDuration, trucks, medias, settings }) => {
+const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {
     return (
-        <div style={{ textAlign: 'left', margin: '10px', padding: '10px', border: '1px solid #ccc' }}>
+        <div style={{textAlign: 'left', margin: '10px', padding: '10px', border: '1px solid #ccc'}}>
             <h4>Debug Information:</h4>
             <p>Media Index: {mediaIndex}</p>
             <p>Interval Duration: {intervalDuration}</p>
@@ -62,11 +62,15 @@ function App() {
                         // Move to the next truck page
                         setTruckIndex(truckIndex + 1);
                         return -1;
-                    } else {
-                        // No more truck pages, switch to media
+                    } else if (medias.length > 0) {
+                        // Switch to media if available
                         setTruckIndex(0); // Reset truck index
                         setIntervalDuration(medias[0]?.duration * 1000 || 2000); // Duration for first media
                         return 0;
+                    } else {
+                        // If no media, keep displaying trucks
+                        setTruckIndex(0); // Reset truck index
+                        return -1;
                     }
                 } else if (prevIndex >= medias.length - 1) {
                     // After the last media, show first truck page
@@ -87,6 +91,7 @@ function App() {
             clearInterval(timer);
         };
     }, [resetInterval, medias, settings, truckIndex, trucks.length]);
+
 
     useEffect(() => {
         setResetInterval(prev => !prev);

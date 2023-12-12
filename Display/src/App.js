@@ -1,9 +1,11 @@
-require('dotenv').config();
 import React, {useEffect, useState} from "react";
 import TruckList from "./Components/TruckList";
 import MediaDisplay from "./Components/MediaDisplay";
 import dataService from "./services/dataService";
 import './App.css';
+
+require('dotenv').config();
+
 
 const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {
     // Ensure trucks and medias are arrays before accessing their length

@@ -3,6 +3,6 @@ const router = express.Router();
 const settings = require('../Controllers/SettingsController');
 
 router.get('/', settings.getSettings);
-router.post('/', settings.updateSettings);
+router.put('/', settings.updateSettings);
 
 module.exports = router;

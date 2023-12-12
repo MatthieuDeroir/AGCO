@@ -42,8 +42,10 @@ exports.updateSettings = async (req, res) => {
     try {
         await Settings.destroy({});
         const settings = await Settings.create(req.body);
+        console.log('settings', settings)
         res.status(201).send(settings);
     } catch (error) {
+        console.log('error', error)
         res.status(400).send(error.message);
     }
 }

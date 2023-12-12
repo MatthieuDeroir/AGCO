@@ -18,13 +18,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "dotenv -e .env.development craco start",
-    "electron": "ELECTRON_START_URL=http://localhost:3000 electron .",
-    "build": "electron-builder",
-    "test": "react-scripts test",
-    "dev": "dotenv -e .env.development concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run electron\"",
-    "eject": "react-scripts eject"
+    "react-start": "react-scripts start",
+    "electron-start": "electron .",
+    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && npm run electron-start\""
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",

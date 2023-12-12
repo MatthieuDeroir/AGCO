@@ -100,12 +100,12 @@ function App() {
                         return 0;
                     } else {
                         // If no media, keep displaying trucks
-                        fetchData();
                         setTruckIndex(0); // Reset truck index
                         return -1;
                     }
                 } else if (prevIndex >= medias.length - 1) {
                     // After the last media, show first truck page
+                    fetchData();
                     setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
                     setTruckIndex(0); // Start from the first truck page
                     return -1;

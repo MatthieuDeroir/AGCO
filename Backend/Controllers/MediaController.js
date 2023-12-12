@@ -1,4 +1,4 @@
-const Media = require('../Models/MediaSchema');
+const Media = require('../Models/MediaModel');
 const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('fluent-ffmpeg');
@@ -6,7 +6,6 @@ const mime = require('mime');
 
 exports.uploadMedia = async (req, res) => {
     try {
-        // Supposons que vous ayez le fichier dans req.file.path
         const filePath = req.file.path;
         const mimeType = mime.getType(filePath);
         let type;

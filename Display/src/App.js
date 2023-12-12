@@ -105,7 +105,9 @@ function App() {
                     }
                 } else if (prevIndex >= medias.length - 1) {
                     // After the last media, show first truck page
-                    fetchData();
+                    fetchData().then(() => {
+                        console.log("Data refreshed");
+                    });
                     setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
                     setTruckIndex(0); // Start from the first truck page
                     return -1;

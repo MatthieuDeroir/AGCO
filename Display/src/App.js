@@ -82,6 +82,7 @@ function App() {
                         return 0;
                     } else {
                         // If no media, keep displaying trucks
+                        fetchData()
                         setTruckIndex(0); // Reset truck index
                         return -1;
                     }

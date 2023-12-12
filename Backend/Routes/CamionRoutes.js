@@ -4,7 +4,7 @@ const camionsController = require('../Controllers/CamionController');
 
 // Définition des routes pour les camions
 router.post('/add', (req, res) => {
-    console.log("CamionRoutes.add: req.body:", req.body)
+    console.log("CamionRoutes.add: req.body:", req.headers, req.body);
     camionsController.addCamion(req, res);
 });
 

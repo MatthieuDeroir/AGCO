@@ -7,7 +7,11 @@ exports.addCamion = async (req, res) => {
         const camion = await Camion.create(req.body);
         res.status(201).send(camion);
     } catch (error) {
-        res.status(400).send(error.message);
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            res.status(400).send('Camion already exists');
+        } else {
+            res.status(400).send(error.message);
+        }
     }
 };
 

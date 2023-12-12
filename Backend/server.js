@@ -5,11 +5,15 @@ require('dotenv').config();
 
 const sequelize = require('./Database/Sequelize');
 
+const initialize = require('./Database/Init');
+
 
 async function startServer() {
     try {
         await sequelize.sync({force: false});
         console.log("All models were synchronized successfully.");
+
+        await initialize();
 
 
         // Ensuite, démarrez votre serveur

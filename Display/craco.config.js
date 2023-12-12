@@ -16,7 +16,7 @@ module.exports = {
                 "crypto": require.resolve("crypto-browserify"),
                 "os": require.resolve("os-browserify/browser"),
                 "stream": require.resolve("stream-browserify"),
-                // ... add other polyfills if needed
+                "buffer": require.resolve("buffer/"),
             };
 
             return webpackConfig;

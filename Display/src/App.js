@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import TruckList from "./Components/TruckList";
 import MediaDisplay from "./Components/MediaDisplay";
 import dataService from "./services/dataService";
+require('dotenv').config();
 import './App.css';
 
 const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {

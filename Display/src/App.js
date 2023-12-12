@@ -58,7 +58,7 @@ function App() {
             setMediaIndex((prevIndex) => {
                 if (prevIndex === -1) {
                     // Check if more truck pages are available
-                    if ((truckIndex + 1) * 10 < trucks.length) {
+                    if ((truckIndex + 1) * 10 < trucks ? trucks.length : 0) {
                         // Move to the next truck page
                         setTruckIndex(truckIndex + 1);
                         return -1;
@@ -90,7 +90,7 @@ function App() {
         return () => {
             clearInterval(timer);
         };
-    }, [resetInterval, medias, settings, truckIndex, trucks.length]);
+    }, [resetInterval, medias, settings, truckIndex, trucks ? trucks.length : 0]);
 
 
     useEffect(() => {

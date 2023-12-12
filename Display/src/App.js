@@ -95,13 +95,13 @@ function App() {
 
     return (
         <div className="App">
-            {/*<DebugInfo*/}
-            {/*    mediaIndex={mediaIndex}*/}
-            {/*    intervalDuration={intervalDuration}*/}
-            {/*    trucks={trucks}*/}
-            {/*    medias={medias}*/}
-            {/*    settings={settings.dureeDefilement}*/}
-            {/*/>*/}
+            <DebugInfo
+                mediaIndex={mediaIndex}
+                intervalDuration={intervalDuration}
+                trucks={trucks}
+                medias={medias}
+                settings={settings.dureeDefilement}
+            />
             {mediaIndex === -1 ? (
                 <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>
             ) : (

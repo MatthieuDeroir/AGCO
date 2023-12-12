@@ -4,7 +4,6 @@ import MediaDisplay from "./Components/MediaDisplay";
 import dataService from "./services/dataService";
 import './App.css';
 
-require('dotenv').config();
 
 
 const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {

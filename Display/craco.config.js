@@ -1,4 +1,5 @@
 const path = require('path');
+const buffer = require("buffer");
 
 module.exports = {
     webpack: {
@@ -17,6 +18,7 @@ module.exports = {
                 "os": require.resolve("os-browserify/browser"),
                 "stream": require.resolve("stream-browserify"),
                 "buffer": require.resolve("buffer/"),
+
             };
 
             return webpackConfig;

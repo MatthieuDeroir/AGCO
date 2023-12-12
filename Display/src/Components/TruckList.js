@@ -39,7 +39,7 @@ function TruckList({ trucks = [], duration }) {
                     </React.Fragment>
                 ))
             ) : (
-                <div className="no-trucks">No trucks available</div>
+                <div className="no-trucks"></div>
             )}
         </div>
     );

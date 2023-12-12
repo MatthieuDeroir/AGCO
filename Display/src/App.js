@@ -72,7 +72,7 @@ function App() {
                         // Move to the next truck page
                         setTruckIndex(truckIndex + 1);
                         return -1;
-                    } else if (medias.length > 0) {
+                    } else if (medias && medias.length > 0) {
                         // Switch to media if available
                         setTruckIndex(0); // Reset truck index
                         setIntervalDuration(medias[0]?.duration * 1000 || 2000); // Duration for first media
@@ -110,17 +110,17 @@ function App() {
 
     return (
         <div className="App">
-            <DebugInfo
-                mediaIndex={mediaIndex}
-                intervalDuration={intervalDuration}
-                trucks={trucks}
-                medias={medias}
-                settings={settings.dureeDefilement}
-            />
-            {mediaIndex === -1 ? (
-                <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>
+            {/*<DebugInfo*/}
+            {/*    mediaIndex={mediaIndex}*/}
+            {/*    intervalDuration={intervalDuration}*/}
+            {/*    trucks={trucks}*/}
+            {/*    medias={medias}*/}
+            {/*    settings={settings.dureeDefilement}*/}
+            {/*/>*/}
+            {mediaIndex !== -1 && Array.isArray(medias) ? (
+                    <MediaDisplay media={medias[mediaIndex]}/>
             ) : (
-                <MediaDisplay media={medias[mediaIndex]}/>
+                <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>
             )}
         </div>
     );

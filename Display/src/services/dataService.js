@@ -1,6 +1,6 @@
 // dataService.js
 
-const API_BASE_URL = 'http://192.1:4000/api';
+const API_BASE_URL = process.env.DISPLAY_URL;
 
 const getSettings = async () => {
     try {

@@ -50,10 +50,6 @@ function App() {
     // Fetch data on component mount
     useEffect(() => {
         fetchData()
-
-        setInterval(() => {
-            fetchData()
-        }, 5000);
     }, []);
 
     const getCurrentTruckPage = () => {

@@ -3,6 +3,7 @@ import TruckList from "./Components/TruckList";
 import MediaDisplay from "./Components/MediaDisplay";
 import dataService from "./services/dataService";
 import './App.css';
+import Veille from "./Components/Veille";
 
 
 const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {
@@ -83,7 +84,7 @@ function App() {
                         return 0;
                     } else {
                         // If no media, keep displaying trucks
-                        fetchData()
+                        fetchData();
                         setTruckIndex(0); // Reset truck index
                         return -1;
                     }
@@ -115,8 +116,9 @@ function App() {
 
     return (
         <div className="App">
-            {time < settings.debutVeille || time > settings.finVeille ? (
-                <div className="no-media">No media available</div>
+            {time > settings.debutVeille && time < settings.finVeille ? (
+                <div><Veille/>
+                    veille</div>
             ) : mediaIndex !== -1 && Array.isArray(medias) ? (
                 <MediaDisplay media={medias[mediaIndex]}/>
             ) : (

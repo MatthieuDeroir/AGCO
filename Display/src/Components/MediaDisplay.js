@@ -21,7 +21,7 @@ function MediaDisplay({media}) {
                     <video src={MEDIA_PATH + media.path} autoPlay muted/>
                 )
             ) : (
-                <div className="no-media">No media available</div>
+                <div className="no-media"></div>
             )}
 
         </div>

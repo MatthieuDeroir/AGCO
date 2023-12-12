@@ -18,7 +18,7 @@ async function startServer() {
 
         // Ensuite, démarrez votre serveur
         const app = require('./Config/Express');
-        const port = process.env.PORT || 4000;
+        const port = process.env.BACKEND_PORT || 4000;
         app.listen(port, () => console.log(`Listening on port ${port}...`));
     } catch (error) {
         console.error('Error during model synchronization or server initialization', error);

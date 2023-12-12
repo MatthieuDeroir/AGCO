@@ -4,7 +4,7 @@ const API_BASE_URL = process.env.BACKEND_URL;
 
 const getSettings = async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/settings`);
+        const response = await fetch(`192.168.100.65:4000/api/settings`);
         console.log("response", response)
         const data = await response.json();
         return data;
@@ -15,7 +15,7 @@ const getSettings = async () => {
 
 const getTrucks = async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/camions`);
+        const response = await fetch(`192.168.100.65:4000/api/camions`);
         console.log("response", response)
 
         const data = await response.json();
@@ -27,7 +27,7 @@ const getTrucks = async () => {
 
 const getMedias = async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/media-management/`);
+        const response = await fetch(`192.168.100.65:4000/api/media-management/`);
         console.log("response", response)
 
         const data = await response.json();

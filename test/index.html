@@ -50,8 +50,53 @@
     <div id="settingsDisplay"></div>
 </section>
 
+<section>
+    <h2>Modifier les Paramètres de Veille</h2>
+    <form id="settingsForm">
+        <label for="debutVeille">Début Veille:</label>
+        <input type="text" id="debutVeille" name="debutVeille" required>
+
+        <label for="finVeille">Fin Veille:</label>
+        <input type="text" id="finVeille" name="finVeille" required>
+
+        <label for="dureeDefilement">Durée Défilement (en secondes):</label>
+        <input type="number" id="dureeDefilement" name="dureeDefilement" required>
+
+        <button type="button" onclick="updateSettings()">Mettre à jour</button>
+    </form>
+</section>
+
+
 <script>
     uri = 'http://192.168.100.65:4000/api';
+
+    async function updateSettings() {
+        try {
+            const debutVeille = document.getElementById('debutVeille').value;
+            const finVeille = document.getElementById('finVeille').value;
+            const dureeDefilement = document.getElementById('dureeDefilement').value;
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(`${uri}/settings`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify({ debutVeille, finVeille, dureeDefilement })
+            });
+
+            if (response.ok) {
+                alert('Paramètres mis à jour avec succès');
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour des paramètres', error);
+        }
+    }
+
     async function signup() {
         try {
             const username = document.getElementById('signupUsername').value;

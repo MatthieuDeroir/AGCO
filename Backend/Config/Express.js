@@ -10,6 +10,8 @@ const configureApp = () => {
     app.use(cors());
     app.use(express.json());
 
+    // make the uploads folder publicly available
+
     // Routes
     // Utilisation des routes pour les camions
     app.use('/api/camions', Routes.Camion);

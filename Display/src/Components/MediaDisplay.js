@@ -11,7 +11,7 @@ import './MediaDisplay.css';
 //     )}}
 // : <div
 function MediaDisplay({media}) {
-    const MEDIA_PATH = 'http://192.168.100.65:4000/';
+    const MEDIA_PATH = 'http://192.168.100.65:4000/api/';
     return (
         <div className="media-container">
             {media ? (

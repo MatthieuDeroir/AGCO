@@ -5,13 +5,17 @@ import dataService from "./services/dataService";
 import './App.css';
 
 const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {
+    // Ensure trucks and medias are arrays before accessing their length
+    const trucksLength = Array.isArray(trucks) ? trucks.length : 0;
+    const mediasLength = Array.isArray(medias) ? medias.length : 0;
+
     return (
         <div style={{textAlign: 'left', margin: '10px', padding: '10px', border: '1px solid #ccc'}}>
             <h4>Debug Information:</h4>
             <p>Media Index: {mediaIndex}</p>
             <p>Interval Duration: {intervalDuration}</p>
-            <p>Number of Trucks: {trucks.length}</p>
-            <p>Number of Medias: {medias.length}</p>
+            <p>Number of Trucks: {trucksLength}</p>
+            <p>Number of Medias: {mediasLength}</p>
             <p>Settings: {JSON.stringify(settings)}</p>
         </div>
     );
@@ -57,6 +61,7 @@ function App() {
         const startIndex = truckIndex * 10;
         return trucks.slice(startIndex, startIndex + 10);
     };
+
 
     useEffect(() => {
         const timer = setInterval(() => {

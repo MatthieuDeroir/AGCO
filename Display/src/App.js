@@ -49,7 +49,11 @@ function App() {
 
     // Fetch data on component mount
     useEffect(() => {
-        fetchData();
+        fetchData()
+
+        setInterval(() => {
+            fetchData()
+        }, 5000);
     }, []);
 
     const getCurrentTruckPage = () => {
@@ -118,7 +122,7 @@ function App() {
             {/*    settings={settings.dureeDefilement}*/}
             {/*/>*/}
             {mediaIndex !== -1 && Array.isArray(medias) ? (
-                    <MediaDisplay media={medias[mediaIndex]}/>
+                <MediaDisplay media={medias[mediaIndex]}/>
             ) : (
                 <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>
             )}

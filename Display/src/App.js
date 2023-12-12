@@ -4,6 +4,7 @@ import MediaDisplay from "./Components/MediaDisplay";
 import dataService from "./services/dataService";
 import './App.css';
 import Veille from "./Components/Veille";
+import moment from "moment";
 
 
 const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {
@@ -56,6 +57,21 @@ function App() {
     useEffect(() => {
         fetchData()
     }, []);
+
+    const isWithinVeilleTime = (currentTime, startTime, endTime) => {
+        const current = moment(currentTime, 'HH:mm');
+        const start = moment(startTime, 'HH:mm');
+        const end = moment(endTime, 'HH:mm');
+        console.log("Veille time ? " + startTime + endTime + current.isBetween(start, end));
+        return current.isBetween(start, end);
+    };
+
+    const hasTrucks = Array.isArray(trucks) && trucks.length > 0;
+    const hasMedias = Array.isArray(medias) && medias.length > 0;
+
+    const shouldDisplayVeille = !hasTrucks && !hasMedias;
+    const shouldDisplayMedias = !hasTrucks && hasMedias;
+    const isVeilleTime = isWithinVeilleTime(time, settings.debutVeille, settings.finVeille);
 
     const getCurrentTruckPage = () => {
         if (!Array.isArray(trucks) || trucks.length === 0) {
@@ -116,10 +132,9 @@ function App() {
 
     return (
         <div className="App">
-            {time > settings.debutVeille && time < settings.finVeille ? (
-                <div><Veille/>
-                    veille</div>
-            ) : mediaIndex !== -1 && Array.isArray(medias) ? (
+            {isVeilleTime || shouldDisplayVeille ? (
+                <Veille/>
+            ) : shouldDisplayMedias || mediaIndex !== -1 ? (
                 <MediaDisplay media={medias[mediaIndex]}/>
             ) : (
                 <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>

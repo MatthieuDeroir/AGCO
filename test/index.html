@@ -149,6 +149,15 @@
         }
     }
 
+    async function addMedias(){
+        try {
+            const token = localStorage.getItem('token');
+
+        } catch (error) {
+            console.error('Erreur lors de l’ajout des médias', error);
+        }
+    }
+
     async function getSettings() {
         try {
             const token = localStorage.getItem('token');

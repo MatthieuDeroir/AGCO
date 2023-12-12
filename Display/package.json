@@ -16,7 +16,7 @@
     "electron": "ELECTRON_START_URL=http://localhost:3000 electron .",
     "build": "electron-builder",
     "test": "react-scripts test",
-    "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run electron\"",
+    "dev": "concurrently \"wait-on http://localhost:3000 && npm run electron\" \"npm start\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "dotenv -e ../.env.production node server.js",
+    "dev": "dotenv -e ../.env.development nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,8 +14,10 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "content-type": "^1.0.5",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "dotenv-cli": "^7.3.0",
     "express": "^4.18.2",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "^0.0.1-security",

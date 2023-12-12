@@ -5,8 +5,6 @@ import dataService from "./services/dataService";
 import './App.css';
 
 
-
-
 const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {
     // Ensure trucks and medias are arrays before accessing their length
     const trucksLength = Array.isArray(trucks) ? trucks.length : 0;
@@ -26,6 +24,7 @@ const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => 
 
 
 function App() {
+    const [time, setTime] = useState(0);
     const [trucks, setTrucks] = useState([]);
     const [medias, setMedias] = useState([]);
     const [settings, setSettings] = useState([]);
@@ -36,6 +35,8 @@ function App() {
 
     // Fetch data from server
     const fetchData = async () => {
+        //set time with current time
+        setTime(new Date().toLocaleTimeString());
         try {
             const [trucksData, mediasData, settingsData] = await Promise.all([
                 dataService.getTrucks(),
@@ -114,14 +115,9 @@ function App() {
 
     return (
         <div className="App">
-            {/*<DebugInfo*/}
-            {/*    mediaIndex={mediaIndex}*/}
-            {/*    intervalDuration={intervalDuration}*/}
-            {/*    trucks={trucks}*/}
-            {/*    medias={medias}*/}
-            {/*    settings={settings.dureeDefilement}*/}
-            {/*/>*/}
-            {mediaIndex !== -1 && Array.isArray(medias) ? (
+            {time < settings.debutVeille || time > settings.finVeille ? (
+                <div className="no-media">No media available</div>
+            ) : mediaIndex !== -1 && Array.isArray(medias) ? (
                 <MediaDisplay media={medias[mediaIndex]}/>
             ) : (
                 <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>

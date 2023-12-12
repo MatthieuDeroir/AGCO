@@ -38,6 +38,7 @@ exports.getSettings = async (req, res) => {
 };
 
 exports.updateSettings = async (req, res) => {
+    console.log('updateSettings', req.body);
     try {
         await Settings.destroy({});
         const settings = await Settings.create(req.body);

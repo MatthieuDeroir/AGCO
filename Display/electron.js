@@ -13,7 +13,7 @@ function createWindow() {
     });
 
     mainWindow.loadURL(
-        process.env.ELECTRON_START_URL ||
+        'http://localhost:3000' ||
         `file://${__dirname}/build/index.html`
     );
 

@@ -1,4 +1,7 @@
-function TruckList({trucks, duration}) {
+import React, { useState, useEffect } from 'react';
+import './TruckList.css';
+
+function TruckList({ trucks, duration }) {
     const [currentTruckIndex, setCurrentTruckIndex] = useState(0);
     const trucksPerPage = 10;
 
@@ -41,3 +44,6 @@ function TruckList({trucks, duration}) {
         </div>
     );
 }
+
+
+export default TruckList;

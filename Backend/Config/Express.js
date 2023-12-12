@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const Routes = require('../Routes/index');
+const path = require('path');
+
 
 const app = express();
 
@@ -14,7 +16,7 @@ const configureApp = () => {
 // Utilisation des routes pour les médias
     app.use('/api/media-management', Routes.Media);
 // Route statique pour les médias
-    app.use('/api/media', express.static('media'));
+    app.use('/api/media', express.static(path.join(__dirname, '../media')));
 // Utilisation des routes pour l'authentification
     app.use('/api/auth', Routes.User);
 // Utilisation des routes pour les paramètres

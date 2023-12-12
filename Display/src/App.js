@@ -49,6 +49,11 @@ function App() {
     }, []);
 
     const getCurrentTruckPage = () => {
+        if (!Array.isArray(trucks) || trucks.length === 0) {
+            // Return an empty array if trucks is not an array or is empty
+            return [];
+        }
+
         const startIndex = truckIndex * 10;
         return trucks.slice(startIndex, startIndex + 10);
     };

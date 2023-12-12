@@ -18,7 +18,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "react-start": "react-scripts start",
+    "react-start": "craco start",
     "electron-start": "electron .",
     "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && npm run electron-start\""
   },

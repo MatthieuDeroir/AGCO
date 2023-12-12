@@ -30,7 +30,7 @@ exports.initializeSettings = async () => {
 
 exports.getSettings = async (req, res) => {
     try {
-        const settings = await Settings.find();
+        const settings = await Settings.findAll();
         res.status(200).send(settings);
     } catch (error) {
         res.status(500).send(error.message);
@@ -39,8 +39,8 @@ exports.getSettings = async (req, res) => {
 
 exports.updateSettings = async (req, res) => {
     try {
-        await Settings.deleteMany({});
-        const settings = await Settings.insertMany(req.body);
+        await Settings.destroy({});
+        const settings = await Settings.create(req.body);
         res.status(201).send(settings);
     } catch (error) {
         res.status(400).send(error.message);

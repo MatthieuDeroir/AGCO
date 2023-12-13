@@ -95,6 +95,7 @@ function App() {
                     if ((truckIndex + 1) * 10 < trucks ? trucks.length : 0) {
                         // Move to the next truck page
                         setTruckIndex(truckIndex + 1);
+                        setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
                         return -1;
                     } else if (medias && medias.length > 0) {
                         // Switch to media if available

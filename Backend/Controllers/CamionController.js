@@ -19,7 +19,7 @@ exports.addCamion = async (req, res) => {
 exports.getCamions = async (req, res) => {
     try {
         const camions = await Camion.findAll({
-            order: [['date_appel', 'DESC']] // Tri par date_appel en ordre décroissant
+            order: [['date_appel', 'ASC']] // Tri par date_appel en ordre décroissant
         });
         res.status(200).send(camions);
     } catch (error) {

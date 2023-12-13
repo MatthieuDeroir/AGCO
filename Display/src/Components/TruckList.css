@@ -8,14 +8,14 @@ html, body {
 
 .grid-container {
     display: grid;
-    grid-template-rows: repeat(10, 1fr); /* 10 rows for 10 trucks */
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 2px; /* Smaller grid gap for smaller window */
+    grid-template-rows: auto repeat(9, 1fr); /* Separate row for headers, then 9 rows for trucks */
+    grid-gap: 2px;
     background-color: black;
     color: white;
     height: 100vh;
     box-sizing: border-box;
-    padding: 5px; /* Reduced padding */
+    padding: 5px;
 }
 
 .header {
@@ -23,13 +23,13 @@ html, body {
     font-weight: bold;
     text-align: center;
     padding: 5px;
-    font-size: 20px; /* Reduced font size for headers */
+    font-size: 20px;
 }
 
 .item {
     text-align: center;
     padding: 5px;
-    font-size: 18px; /* Reduced font size for items */
+    font-size: 18px;
 }
 
 .no-trucks {

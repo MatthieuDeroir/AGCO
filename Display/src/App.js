@@ -130,30 +130,6 @@ function App() {
     };
 
 
-    const updateDisplay = () => {
-        const currentTime = new Date().toLocaleTimeString();
-        const isVeille = isWithinVeilleTime(currentTime, settings.debutVeille, settings.finVeille) || (!hasTrucks && !hasMedias);
-
-        if (isVeille) {
-            setIsMediaDisplay(false);
-            setMediaIndex(0);
-            setTruckIndex(0);
-            // Ici, vous pouvez définir un état pour afficher l'écran de veille
-        } else if (hasMedias && !hasTrucks) {
-            setIsMediaDisplay(true);
-            cycleMedias();
-        } else if (hasTrucks && !hasMedias) {
-            setIsMediaDisplay(false);
-            cycleTrucks();
-        } else if (hasTrucks && hasMedias) {
-            // Alterner entre les camions et les médias
-            if (isMediaDisplay) {
-                cycleMedias();
-            } else {
-                cycleTrucks();
-            }
-        }
-    };
 
 
     // useEffect(() => {

@@ -84,67 +84,99 @@ function App() {
     };
 
 
+    // useEffect(() => {
+    //     const timer = setInterval(() => {
+    //         setMediaIndex((prevIndex) => {
+    //             fetchData().then(() => {
+    //                 console.log("Data refreshed");
+    //             });
+    //             if (prevIndex === -1) {
+    //                 // Check if more truck pages are available
+    //                 if ((truckIndex + 1) * 10 < trucks ? trucks.length : 0) {
+    //                     // Move to the next truck page
+    //                     setTruckIndex(truckIndex + 1);
+    //                     setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
+    //                     return -1;
+    //                 } else if (medias && medias.length > 0) {
+    //                     // Switch to media if available
+    //                     setTruckIndex(0); // Reset truck index
+    //                     setIntervalDuration(medias[0]?.duration * 1000 || 2000); // Duration for first media
+    //                     return 0;
+    //                 } else {
+    //                     // If no media, keep displaying trucks
+    //                     setTruckIndex(0); // Reset truck index
+    //                     return -1;
+    //                 }
+    //             } else if (prevIndex >= medias.length - 1) {
+    //                 // After the last media, show first truck page
+    //
+    //                 setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
+    //                 setTruckIndex(0); // Start from the first truck page
+    //                 return -1;
+    //             } else {
+    //                 // Move to the next media and set its duration
+    //                 const nextMediaDuration = medias[prevIndex + 1]?.duration * 1000 || 2000;
+    //                 setIntervalDuration(nextMediaDuration);
+    //                 return prevIndex + 1;
+    //             }
+    //         });
+    //     }, intervalDuration);
     useEffect(() => {
         const timer = setInterval(() => {
-            setMediaIndex((prevIndex) => {
-                fetchData().then(() => {
-                    console.log("Data refreshed");
-                });
-                if (prevIndex === -1) {
-                    // Check if more truck pages are available
-                    if ((truckIndex + 1) * 10 < trucks ? trucks.length : 0) {
-                        // Move to the next truck page
-                        setTruckIndex(truckIndex + 1);
-                        setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
-                        return -1;
-                    } else if (medias && medias.length > 0) {
-                        // Switch to media if available
-                        setTruckIndex(0); // Reset truck index
-                        setIntervalDuration(medias[0]?.duration * 1000 || 2000); // Duration for first media
-                        return 0;
-                    } else {
-                        // If no media, keep displaying trucks
-                        setTruckIndex(0); // Reset truck index
-                        return -1;
-                    }
-                } else if (prevIndex >= medias.length - 1) {
-                    // After the last media, show first truck page
+            fetchData().then(() => console.log("Data refreshed"));
 
-                    setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
-                    setTruckIndex(0); // Start from the first truck page
-                    return -1;
+            // Check if more truck pages are available
+            if ((truckIndex + 1) * 10 < trucks.length) {
+                // Move to the next truck page
+                setTruckIndex(truckIndex + 1);
+            } else {
+                // Reset to the first truck page or switch to media
+                setTruckIndex(0);
+
+                if (medias && medias.length > 0) {
+                    // If media available, switch to media
+                    setIntervalDuration(medias[0]?.duration * 1000 || 2000); // Duration for first media
+                    setMediaIndex(0);
                 } else {
-                    // Move to the next media and set its duration
-                    const nextMediaDuration = medias[prevIndex + 1]?.duration * 1000 || 2000;
-                    setIntervalDuration(nextMediaDuration);
-                    return prevIndex + 1;
+                    // If no media, continue displaying trucks
+                    setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
+                    setMediaIndex(-1);
                 }
-            });
+            }
         }, intervalDuration);
 
-        // Clean up the interval when the component unmounts
-        return () => {
-            clearInterval(timer);
-        };
-    }, [resetInterval, medias, settings, truckIndex, trucks ? trucks.length : 0]);
+        return () => clearInterval(timer);
+    }, [resetInterval, medias, settings, truckIndex, trucks.length]);
 
 
-    useEffect(() => {
-        setResetInterval(prev => !prev);
-    }, [mediaIndex, intervalDuration]);
+    // Clean up the interval when the component unmounts
+    return () => {
+        clearInterval(timer);
+    };
+}
+
+,
+[resetInterval, medias, settings, truckIndex, trucks ? trucks.length : 0]
+)
+;
 
 
-    return (
-        <div className="App">
-            {isVeilleTime || shouldDisplayVeille ? (
-                <Veille/>
-            ) : shouldDisplayMedias || mediaIndex !== -1 ? (
-                <MediaDisplay media={medias[mediaIndex]}/>
-            ) : (
-                <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>
-            )}
-        </div>
-    );
+useEffect(() => {
+    setResetInterval(prev => !prev);
+}, [mediaIndex, intervalDuration]);
+
+
+return (
+    <div className="App">
+        {isVeilleTime || shouldDisplayVeille ? (
+            <Veille/>
+        ) : shouldDisplayMedias || mediaIndex !== -1 ? (
+            <MediaDisplay media={medias[mediaIndex]}/>
+        ) : (
+            <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>
+        )}
+    </div>
+);
 }
 
 export default App;

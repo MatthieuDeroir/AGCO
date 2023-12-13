@@ -22,11 +22,10 @@
 }
 
 .item {
-  height: 60.5px;
   display: flex;
   justify-content: center; /* Alignement horizontal */
   align-items: center; /* Alignement vertical */
-  font-size: 18px; /* Taille de police ajustée */
+  font-size: 16px; /* Taille de police ajustée */
   border-top: 1px solid white;
 }
 

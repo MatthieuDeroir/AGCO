@@ -10,30 +10,30 @@ html, body {
     display: grid;
     grid-template-rows: repeat(10, 1fr); /* 10 rows for 10 trucks */
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px; /* Adjust based on your preference */
+    grid-gap: 2px; /* Smaller grid gap for smaller window */
     background-color: black;
     color: white;
     height: 100vh;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 5px; /* Reduced padding */
 }
 
 .header {
     color: orange;
     font-weight: bold;
     text-align: center;
-    padding: 20px;
-    font-size: 60px; /* Large font size for headers */
+    padding: 5px;
+    font-size: 20px; /* Reduced font size for headers */
 }
 
 .item {
     text-align: center;
-    padding: 20px;
-    font-size: 50px; /* Large font size for items */
+    padding: 5px;
+    font-size: 18px; /* Reduced font size for items */
 }
 
 .no-trucks {
     grid-column: 1 / -1;
     text-align: center;
-    font-size: 50px;
+    font-size: 18px;
 }

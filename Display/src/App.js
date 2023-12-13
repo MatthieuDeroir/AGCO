@@ -202,6 +202,10 @@ function App() {
     //         }
     //     }, intervalDuration);
 
+//
+//     return () => clearInterval(timer);
+// }, [resetInterval, medias, settings, truckIndex, trucks.length]);
+
         useEffect(() => {
             fetchData().then(() => console.log("Data refreshed"));
             const timer = setInterval(() => {
@@ -211,9 +215,6 @@ function App() {
             return () => clearInterval(timer);
         }, [intervalDuration, trucks, medias, settings, truckIndex, mediaIndex, isMediaDisplay]);
 
-
-        return () => clearInterval(timer);
-    }, [resetInterval, medias, settings, truckIndex, trucks.length]);
 
 
 

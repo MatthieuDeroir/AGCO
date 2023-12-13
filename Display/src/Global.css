@@ -16,10 +16,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
-  max-width: 320px;
-  max-height: 640px;
-  min-width: 320px;
-  min-height: 640px;
+  max-width: 300px;
+  max-height: 600px;
+  min-width: 300px;
+  min-height: 600px;
   overflow: hidden;
   font-family: "D-DIN-Bold", sans-serif;
 }

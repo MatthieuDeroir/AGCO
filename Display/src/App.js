@@ -91,8 +91,8 @@ function App() {
                     console.log("Data refreshed");
                 });
                 if (prevIndex === -1) {
-                    // Check if more truck pages are available
-                    if ((truckIndex + 1) * 10 < trucks ? trucks.length : 0) {
+                    // Check if more truck pages are available even if there is less than 10 trucks
+                    if (trucks && trucks.length > 0 && truckIndex < Math.ceil(trucks.length / 10) - 1) {
                         // Move to the next truck page
                         setTruckIndex(truckIndex + 1);
                         setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks

@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import TruckList from "./Components/TruckList";
 import MediaDisplay from "./Components/MediaDisplay";
 import dataService from "./services/dataService";
-import './App.css';
 import Veille from "./Components/Veille";
 import moment from "moment";
+import './Global.css';
 
 
 const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => {
@@ -33,7 +33,7 @@ function App() {
     const [mediaIndex, setMediaIndex] = useState(-1);
     const [truckIndex, setTruckIndex] = useState(0);
     const [resetInterval, setResetInterval] = useState(false);
-    const [intervalDuration, setIntervalDuration] = useState(30000); // Default to 30 seconds
+    const [intervalDuration, setIntervalDuration] = useState(10000);
 
     // Fetch data from server
     const fetchData = async () => {
@@ -48,6 +48,7 @@ function App() {
             setTrucks(trucksData);
             setMedias(mediasData);
             setSettings(settingsData[0]);
+            setIntervalDuration(settingsData[0].dureeDefilement * 1000); // Duration for trucks
         } catch (error) {
             console.error("An error occurred while fetching data:", error);
         }
@@ -135,7 +136,13 @@ function App() {
 
 
     return (
-        <div className="App">
+        <div
+        style={{
+          maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
+          maxWidth: `${process.env.REACT_APP_WIDTH}px`,
+          overflow: "hidden",
+        }}
+      >
             {isVeilleTime || shouldDisplayVeille ? (
                 <Veille/>
             ) : shouldDisplayMedias || mediaIndex !== -1 ? (

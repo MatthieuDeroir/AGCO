@@ -62,7 +62,7 @@ exports.deleteMedia = async (req, res) => {
         if (!media) return res.status(404).send('Media not found');
 
         // Suppression du fichier
-        fs.unlinkSync(path.join(__dirname, '..', '', media.path));
+        fs.unlinkSync(path.join(__dirname, '..', '',`./${media.path}` ));
 
 
         // Suppression de l'entrée dans la base de données avec Sequelize

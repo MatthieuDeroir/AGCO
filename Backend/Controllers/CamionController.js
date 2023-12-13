@@ -44,6 +44,7 @@ exports.deleteCamion = async (req, res) => {
 
 
 exports.updateCamions = async (req, res) => {
+    console.log("CamionController.updateCamions: req.body:", req.body);
     try {
         // Cette opération supprimera tous les camions et insérera les nouveaux
         await Camion.destroy({ where: {} });

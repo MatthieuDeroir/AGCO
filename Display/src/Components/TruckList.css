@@ -1,39 +1,45 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    font-family: "Arial Black", sans-serif;
-}
-
 .grid-container {
-    display: grid;
-    grid-template-columns: 106px 106px 106px; /* Fixe la largeur des colonnes */
-    grid-template-rows: auto repeat(9, 1fr); /* Une rangée pour l'en-tête, puis 9 rangées pour les camions */
-    grid-gap: 1px; /* Espace réduit entre les cellules */
-    background-color: black;
-    color: white;
-    height: 100vh;
-    box-sizing: border-box;
-    padding: 3px; /* Espacement réduit */
+  display: grid;
+  grid-template-columns: 1.5fr 0.75fr 0.5fr;  /* Fixe la largeur des colonnes */
+  grid-template-rows: auto repeat(10, 1fr); /* Une rangée pour l'en-tête, puis 9 rangées pour les camions */
+  grid-gap: 0px; /* Espace réduit entre les cellules */
+  background-color: black;
+  color: white;
+  box-sizing: border-box;
+  max-width: 320px;
+  max-height: 640px;
+  min-width: 320px;
+  min-height: 640px;
+  text-transform: uppercase;
 }
 
 .header {
-    color: orange;
-    font-weight: bold;
-    text-align: center;
-    padding: 3px;
-    font-size: 16px; /* Taille de police ajustée */
+  color: orange;
+  font-weight: bold;
+  text-align: center;
+  height: 25px;
+  font-size: 22px; /* Taille de police ajustée */
 }
 
 .item {
-    text-align: center;
-    padding: 3px;
-    font-size: 14px; /* Taille de police ajustée */
+  height: 60.5px;
+  display: flex;
+  justify-content: center; /* Alignement horizontal */
+  align-items: center; /* Alignement vertical */
+  font-size: 18px; /* Taille de police ajustée */
+  border-top: 1px solid white;
 }
 
 .no-trucks {
-    grid-column: 1 / -1;
-    text-align: center;
-    font-size: 14px;
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 14px;
+}
+
+.group-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

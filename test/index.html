@@ -68,7 +68,7 @@
 
 
 <script>
-    uri = 'http://192.168.100.65:4000/api';
+    uri = 'http://192.168.100.172:4000/api';
 
     async function updateSettings() {
         try {
@@ -188,6 +188,13 @@
                 medias.forEach(media => {
                     const mediaDiv = document.createElement('div');
                     mediaDiv.textContent = `ID: ${media.id}, Type: ${media.type}, Path: ${media.path}`;
+
+                    // Créer un bouton de suppression pour chaque média
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Supprimer';
+                    deleteButton.onclick = function() { deleteMedia(media.id); }; // Fonction de suppression à définir
+
+                    mediaDiv.appendChild(deleteButton);
                     mediasList.appendChild(mediaDiv);
                 });
             } else {
@@ -198,6 +205,30 @@
             console.error('Erreur lors de la récupération des médias', error);
         }
     }
+
+    async function deleteMedia(mediaId) {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`${uri}/media-management/${mediaId}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+
+            if (response.ok) {
+                alert('Média supprimé avec succès');
+                listMedias(); // Rafraîchir la liste après la suppression
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression du média', error);
+        }
+    }
+
 
     async function uploadMedia() {
         try {

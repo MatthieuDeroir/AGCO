@@ -30,7 +30,7 @@ exports.uploadMedia = async (req, res) => {
             });
         }
         else {
-            duration = 30;
+            duration = req.body.duration;
         }
 
         const media = await Media.create({

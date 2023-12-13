@@ -8,32 +8,32 @@ html, body {
 
 .grid-container {
     display: grid;
-    grid-template-rows: auto repeat(auto-fill, minmax(5vh, 1fr)); /* Adapt rows for header and truck entries */
+    grid-template-rows: repeat(10, 1fr); /* 10 rows for 10 trucks */
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 0px;
+    grid-gap: 10px; /* Adjust based on your preference */
     background-color: black;
     color: white;
     height: 100vh;
     box-sizing: border-box;
     padding: 20px;
-    align-content: start;
 }
 
 .header {
     color: orange;
     font-weight: bold;
     text-align: center;
-    padding: 10px;
-    font-size: 2vh; /* Adjust header font size */
+    padding: 20px;
+    font-size: 60px; /* Large font size for headers */
 }
 
 .item {
     text-align: center;
-    padding: 10px;
-    font-size: 2vw; /* Adjust item font size */
+    padding: 20px;
+    font-size: 50px; /* Large font size for items */
 }
 
 .no-trucks {
-    grid-column: 1 / -1; /* Span the full width if no trucks */
+    grid-column: 1 / -1;
     text-align: center;
+    font-size: 50px;
 }

@@ -40,6 +40,8 @@
     <h2>Upload de Média</h2>
     <form id="uploadMediaForm" enctype="multipart/form-data">
         <input type="file" id="file" name="file" required>
+        <label for="duration">Durée d'affichage (en secondes):</label>
+        <input type="number" id="duration" name="duration" required>
         <button type="button" onclick="uploadMedia()">Uploader le média</button>
     </form>
 </section>
@@ -83,7 +85,7 @@
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + token
                 },
-                body: JSON.stringify({ debutVeille, finVeille, dureeDefilement })
+                body: JSON.stringify({debutVeille, finVeille, dureeDefilement})
             });
 
             if (response.ok) {
@@ -192,7 +194,9 @@
                     // Créer un bouton de suppression pour chaque média
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'Supprimer';
-                    deleteButton.onclick = function() { deleteMedia(media.id); }; // Fonction de suppression à définir
+                    deleteButton.onclick = function () {
+                        deleteMedia(media.id);
+                    }; // Fonction de suppression à définir
 
                     mediaDiv.appendChild(deleteButton);
                     mediasList.appendChild(mediaDiv);
@@ -233,8 +237,10 @@
     async function uploadMedia() {
         try {
             const fileInput = document.getElementById('file');
+            const durationInput = document.getElementById('duration');
             const formData = new FormData();
             formData.append('file', fileInput.files[0]);
+            formData.append('duration', durationInput.value);
             const token = localStorage.getItem('token');
 
             const response = await fetch(`${uri}/media-management/upload`, {

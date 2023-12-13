@@ -16,11 +16,11 @@ function createWindow() {
     });
 
     mainWindow.loadURL(
-        'http://localhost:3000' ||
+        'http://127.0.0.1:3000' ||
         `file://${__dirname}/build/index.html`
     );
 
-    // mainWindow.openDevTools(); // Ouvrir les DevTools
+    mainWindow.openDevTools(); // Ouvrir les DevTools
 
     mainWindow.setAlwaysOnTop(true); // Garder la fenêtre toujours au-dessus
 

@@ -121,6 +121,14 @@ function App() {
     //             }
     //         });
     //     }, intervalDuration);
+    //
+    //
+    //     // Clean up the interval when the component unmounts
+    //     return () => {
+    //         clearInterval(timer);
+    //     };
+    // }, [resetInterval, medias, settings, truckIndex, trucks ? trucks.length : 0]);
+
     useEffect(() => {
         const timer = setInterval(() => {
             fetchData().then(() => console.log("Data refreshed"));
@@ -149,34 +157,23 @@ function App() {
     }, [resetInterval, medias, settings, truckIndex, trucks.length]);
 
 
-    // Clean up the interval when the component unmounts
-    return () => {
-        clearInterval(timer);
-    };
-}
 
-,
-[resetInterval, medias, settings, truckIndex, trucks ? trucks.length : 0]
-)
-;
+    useEffect(() => {
+        setResetInterval(prev => !prev);
+    }, [mediaIndex, intervalDuration]);
 
 
-useEffect(() => {
-    setResetInterval(prev => !prev);
-}, [mediaIndex, intervalDuration]);
-
-
-return (
-    <div className="App">
-        {isVeilleTime || shouldDisplayVeille ? (
-            <Veille/>
-        ) : shouldDisplayMedias || mediaIndex !== -1 ? (
-            <MediaDisplay media={medias[mediaIndex]}/>
-        ) : (
-            <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>
-        )}
-    </div>
-);
+    return (
+        <div className="App">
+            {isVeilleTime || shouldDisplayVeille ? (
+                <Veille/>
+            ) : shouldDisplayMedias || mediaIndex !== -1 ? (
+                <MediaDisplay media={medias[mediaIndex]}/>
+            ) : (
+                <TruckList trucks={getCurrentTruckPage()} duration={settings.dureeDefilement}/>
+            )}
+        </div>
+    );
 }
 
 export default App;

@@ -8,32 +8,32 @@ html, body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr; /* Maintains a 3-column layout */
     grid-template-rows: auto repeat(9, 1fr); /* Separate row for headers, then 9 rows for trucks */
-    grid-gap: 2px;
+    grid-gap: 1px; /* Reduced gap for smaller screen */
     background-color: black;
     color: white;
     height: 100vh;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 3px; /* Reduced padding */
 }
 
 .header {
     color: orange;
     font-weight: bold;
     text-align: center;
-    padding: 5px;
-    font-size: 20px;
+    padding: 3px; /* Reduced padding */
+    font-size: 16px; /* Reduced font size */
 }
 
 .item {
     text-align: center;
-    padding: 5px;
-    font-size: 18px;
+    padding: 3px; /* Reduced padding */
+    font-size: 14px; /* Reduced font size */
 }
 
 .no-trucks {
     grid-column: 1 / -1;
     text-align: center;
-    font-size: 18px;
+    font-size: 14px; /* Reduced font size */
 }

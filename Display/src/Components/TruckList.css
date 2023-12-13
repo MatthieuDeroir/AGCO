@@ -4,30 +4,36 @@ html, body {
     height: 100%;
     overflow: hidden;
     font-family: "Arial Black", sans-serif;
-    font-size: calc(1920px * 0.010); /* Ajustez cette valeur pour changer la taille de la police en fonction de la largeur de l'écran */
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 0px;
+    grid-template-columns: 106px 106px 106px; /* Fixe la largeur des colonnes */
+    grid-template-rows: auto repeat(9, 1fr); /* Une rangée pour l'en-tête, puis 9 rangées pour les camions */
+    grid-gap: 1px; /* Espace réduit entre les cellules */
     background-color: black;
     color: white;
     height: 100vh;
     box-sizing: border-box;
-    padding: 20px;
-    align-content: start; /* Aligner les lignes de grille au début du conteneur de grille */
+    padding: 3px; /* Espacement réduit */
 }
-
 
 .header {
     color: orange;
     font-weight: bold;
     text-align: center;
-    padding: 10px;
+    padding: 3px;
+    font-size: 16px; /* Taille de police ajustée */
 }
 
 .item {
     text-align: center;
-    padding: 10px;
+    padding: 3px;
+    font-size: 14px; /* Taille de police ajustée */
+}
+
+.no-trucks {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 14px;
 }

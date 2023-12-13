@@ -1,20 +1,26 @@
-const Camion = require('../Models/CamionSchema');
+const Camion = require('../Models/CamionModel');
+
 
 exports.addCamion = async (req, res) => {
     try {
-        console.log("CamionController.addCamion: req.body:", req.body);
 
-        const camion = new Camion(req.body);
-        await camion.save();
+        const camion = await Camion.create(req.body);
         res.status(201).send(camion);
     } catch (error) {
-        res.status(400).send(error.message);
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            res.status(400).send('Camion already exists');
+        } else {
+            res.status(400).send(error.message);
+        }
     }
 };
 
+
 exports.getCamions = async (req, res) => {
     try {
-        const camions = await Camion.find().sort({ date_appel: -1 }); 
+        const camions = await Camion.findAll({
+            order: [['date_appel', 'ASC']] // Tri par date_appel en ordre décroissant
+        });
         res.status(200).send(camions);
     } catch (error) {
         res.status(500).send(error.message);
@@ -22,20 +28,26 @@ exports.getCamions = async (req, res) => {
 };
 
 
+
 exports.deleteCamion = async (req, res) => {
     try {
-        const camion = await Camion.findByIdAndDelete(req.params.id);
-        if (!camion) return res.status(404).send('Camion not found');
-        res.status(200).send(camion);
+        const result = await Camion.destroy({
+            where: { id: req.body.id }
+        });
+
+        if (result === 0) return res.status(404).send('Camion not found');
+        res.status(200).send({ message: 'Camion deleted' });
     } catch (error) {
         res.status(500).send(error.message);
     }
 };
 
+
 exports.updateCamions = async (req, res) => {
     try {
-        await Camion.deleteMany({});
-        const camions = await Camion.insertMany(req.body);
+        // Cette opération supprimera tous les camions et insérera les nouveaux
+        await Camion.destroy({ where: {} });
+        const camions = await Camion.bulkCreate(req.body);
         res.status(201).send(camions);
     } catch (error) {
         res.status(400).send(error.message);

@@ -1,14 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import './MediaDisplay.css';
 
-function MediaDisplay({ media }) {
+
+
+// {
+//     {media.type === 'image' ? (
+//         <img src={media.path} alt="Media" />
+//     ) : (
+//         <video src={media.path} autoPlay muted />
+//     )}}
+// : <div
+function MediaDisplay({media}) {
+    const MEDIA_PATH = 'http://127.0.0.1:4000/api/';
     return (
         <div className="media-container">
-            {media.type === 'image' ? (
-                <img src={media.path} alt="Media" />
+            {media ? (
+                media.type === 'image' ? (
+                    <img src={ MEDIA_PATH + media.path} alt="Media"/>
+                ) : (
+                    <video src={MEDIA_PATH + media.path} autoPlay muted/>
+                )
             ) : (
-                <video src={media.path} autoPlay muted />
+                <div className="no-media"></div>
             )}
+
         </div>
     );
 }

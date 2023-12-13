@@ -3,9 +3,13 @@ const router = express.Router();
 const camionsController = require('../Controllers/CamionController');
 
 // Définition des routes pour les camions
-console.log(router.post('/add', camionsController.addCamion));
+router.post('/add', (req, res) => {
+    console.log("CamionRoutes.add: req.body:", req.headers, req.body);
+    camionsController.addCamion(req, res);
+});
+
 router.get('/', camionsController.getCamions);
-router.delete('/:id', camionsController.deleteCamion);
-router.post('/update', camionsController.updateCamions);
+router.post('/remove/:id', camionsController.deleteCamion);
+router.post('/update-list', camionsController.updateCamions);
 
 module.exports = router;

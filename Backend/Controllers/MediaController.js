@@ -1,4 +1,4 @@
-const Media = require('../Models/MediaSchema');
+const Media = require('../Models/MediaModel');
 const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('fluent-ffmpeg');
@@ -6,7 +6,6 @@ const mime = require('mime');
 
 exports.uploadMedia = async (req, res) => {
     try {
-        // Supposons que vous ayez le fichier dans req.file.path
         const filePath = req.file.path;
         const mimeType = mime.getType(filePath);
         let type;
@@ -31,17 +30,14 @@ exports.uploadMedia = async (req, res) => {
             });
         }
         else {
-            duration = 30;
+            duration = req.body.duration;
         }
 
-        // Créer une nouvelle instance de Media avec le type, la durée, et le chemin
-        const media = new Media({
+        const media = await Media.create({
             type,
             duration,
-            path: filePath, // ou un autre chemin basé sur votre logique de stockage
+            path: filePath,
         });
-
-        await media.save();
         res.status(201).send(media);
 
     } catch (error) {
@@ -53,7 +49,7 @@ exports.uploadMedia = async (req, res) => {
 
 exports.getAllMedia = async (req, res) => {
     try {
-        const media = await Media.find();
+        const media = await Media.findAll();
         res.status(200).send(media);
     } catch (error) {
         res.status(500).send(error.message);
@@ -62,26 +58,34 @@ exports.getAllMedia = async (req, res) => {
 
 exports.deleteMedia = async (req, res) => {
     try {
-        const media = await Media.findById(req.params.id);
+        const media = await Media.findByPk(req.params.id);
         if (!media) return res.status(404).send('Media not found');
 
         // Suppression du fichier
-        fs.unlinkSync(path.join(__dirname, '..', 'media', media.path));
+        fs.unlinkSync(path.join(__dirname, '..', '', media.path));
 
-        // Suppression de l'entrée dans la base de données
-        await media.remove();
-        res.status(200).send(media);
+
+        // Suppression de l'entrée dans la base de données avec Sequelize
+        await media.destroy();
+        res.status(200).send({ message: 'Media deleted successfully' });
     } catch (error) {
         res.status(500).send(error.message);
     }
 };
+
 
 exports.updateMedia = async (req, res) => {
     try {
-        const media = await Media.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!media) return res.status(404).send('Media not found');
-        res.status(200).send(media);
+        const [updateCount] = await Media.update(req.body, {
+            where: { id: req.params.id }
+        });
+
+        if (updateCount === 0) return res.status(404).send('Media not found');
+
+        const updatedMedia = await Media.findByPk(req.params.id);
+        res.status(200).send(updatedMedia);
     } catch (error) {
         res.status(500).send(error.message);
     }
 };
+

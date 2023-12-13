@@ -37,6 +37,13 @@
     <h2>Médias</h2>
     <button onclick="listMedias()">Lister tous les médias</button>
     <div id="mediasList"></div>
+    <h2>Upload de Média</h2>
+    <form id="uploadMediaForm" enctype="multipart/form-data">
+        <input type="file" id="file" name="file" required>
+        <label for="duration">Durée d'affichage (en secondes):</label>
+        <input type="number" id="duration" name="duration" required>
+        <button type="button" onclick="uploadMedia()">Uploader le média</button>
+    </form>
 </section>
 
 <section>
@@ -45,8 +52,53 @@
     <div id="settingsDisplay"></div>
 </section>
 
+<section>
+    <h2>Modifier les Paramètres de Veille</h2>
+    <form id="settingsForm">
+        <label for="debutVeille">Début Veille:</label>
+        <input type="text" id="debutVeille" name="debutVeille" required>
+
+        <label for="finVeille">Fin Veille:</label>
+        <input type="text" id="finVeille" name="finVeille" required>
+
+        <label for="dureeDefilement">Durée Défilement (en secondes):</label>
+        <input type="number" id="dureeDefilement" name="dureeDefilement" required>
+
+        <button type="button" onclick="updateSettings()">Mettre à jour</button>
+    </form>
+</section>
+
+
 <script>
-    uri = 'http://localhost:4000';
+    uri = 'http://127.0.0.1:4000/api';
+
+    async function updateSettings() {
+        try {
+            const debutVeille = document.getElementById('debutVeille').value;
+            const finVeille = document.getElementById('finVeille').value;
+            const dureeDefilement = document.getElementById('dureeDefilement').value;
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(`${uri}/settings`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify({debutVeille, finVeille, dureeDefilement})
+            });
+
+            if (response.ok) {
+                alert('Paramètres mis à jour avec succès');
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour des paramètres', error);
+        }
+    }
+
     async function signup() {
         try {
             const username = document.getElementById('signupUsername').value;
@@ -138,6 +190,15 @@
                 medias.forEach(media => {
                     const mediaDiv = document.createElement('div');
                     mediaDiv.textContent = `ID: ${media.id}, Type: ${media.type}, Path: ${media.path}`;
+
+                    // Créer un bouton de suppression pour chaque média
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Supprimer';
+                    deleteButton.onclick = function () {
+                        deleteMedia(media.id);
+                    }; // Fonction de suppression à définir
+
+                    mediaDiv.appendChild(deleteButton);
                     mediasList.appendChild(mediaDiv);
                 });
             } else {
@@ -149,28 +210,55 @@
         }
     }
 
-    async function getSettings() {
+    async function deleteMedia(mediaId) {
+        const token = localStorage.getItem('token');
+
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${uri}/settings`, {
+            const response = await fetch(`${uri}/media-management/${mediaId}`, {
+                method: 'DELETE',
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
             });
 
             if (response.ok) {
-                const settings = await response.json();
-                const settingsDisplay = document.getElementById('settingsDisplay');
-                settingsDisplay.innerHTML = ""; // Clear previous settings
-                const settingsDiv = document.createElement('div');
-                settingsDiv.textContent = `Début Veille: ${settings.debutVeille}, Fin Veille: ${settings.finVeille}, Durée Défilement: ${settings.dureeDefilement}`;
-                settingsDisplay.appendChild(settingsDiv);
+                alert('Média supprimé avec succès');
+                listMedias(); // Rafraîchir la liste après la suppression
             } else {
                 const data = await response.json();
                 alert('Erreur: ' + data.message);
             }
         } catch (error) {
-            console.error('Erreur lors de la récupération des paramètres de veille', error);
+            console.error('Erreur lors de la suppression du média', error);
+        }
+    }
+
+
+    async function uploadMedia() {
+        try {
+            const fileInput = document.getElementById('file');
+            const durationInput = document.getElementById('duration');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('duration', durationInput.value);
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(`${uri}/media-management/upload`, {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Upload réussi');
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de l’upload du média', error);
         }
     }
 </script>

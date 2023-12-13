@@ -33,10 +33,7 @@ function App() {
 
     useEffect(() => {
         fetchData();
-        const interval = setInterval(() => {
-            fetchData();
-        }, 60000); // Mise à jour des données toutes les minutes
-        return () => clearInterval(interval);
+
     }, []);
 
     const isWithinVeilleTime = (currentTime, startTime, endTime) => {
@@ -84,8 +81,9 @@ function App() {
 
     useEffect(() => {
         const timer = setInterval(() => {
+            fetchData();
             updateDisplay();
-        }, 30000); // Durée par défaut pour changer l'affichage
+        }, settings.dureeDefilement); // Durée par défaut pour changer l'affichage
 
         return () => clearInterval(timer);
     }, [truckIndex, mediaIndex, isMediaDisplay]);

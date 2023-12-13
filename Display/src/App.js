@@ -100,7 +100,7 @@ function App() {
                     } else if (medias && medias.length > 0) {
                         // Switch to media if available
                         setTruckIndex(0); // Reset truck index
-                        setIntervalDuration(medias[0]?.duration * 1000 || 2000); // Duration for first media
+                        setIntervalDuration(medias[mediaIndex]?.duration * 1000 || 2000); // Duration for first media
                         return 0;
                     } else {
                         // If no media, keep displaying trucks

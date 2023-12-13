@@ -87,6 +87,9 @@ function App() {
     useEffect(() => {
         const timer = setInterval(() => {
             setMediaIndex((prevIndex) => {
+                fetchData().then(() => {
+                    console.log("Data refreshed");
+                });
                 if (prevIndex === -1) {
                     // Check if more truck pages are available
                     if ((truckIndex + 1) * 10 < trucks ? trucks.length : 0) {
@@ -105,9 +108,7 @@ function App() {
                     }
                 } else if (prevIndex >= medias.length - 1) {
                     // After the last media, show first truck page
-                    fetchData().then(() => {
-                        console.log("Data refreshed");
-                    });
+
                     setIntervalDuration(settings.dureeDefilement * 1000); // Duration for trucks
                     setTruckIndex(0); // Start from the first truck page
                     return -1;

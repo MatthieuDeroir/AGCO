@@ -4,11 +4,11 @@ html, body {
     height: 100%;
     overflow: hidden;
     font-family: "Arial Black", sans-serif;
-    font-size: calc(1920px * 0.010); /* Ajustez cette valeur pour changer la taille de la police en fonction de la largeur de l'écran */
 }
 
 .grid-container {
     display: grid;
+    grid-template-rows: auto repeat(auto-fill, minmax(5vh, 1fr)); /* Adapt rows for header and truck entries */
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 0px;
     background-color: black;
@@ -16,18 +16,24 @@ html, body {
     height: 100vh;
     box-sizing: border-box;
     padding: 20px;
-    align-content: start; /* Aligner les lignes de grille au début du conteneur de grille */
+    align-content: start;
 }
-
 
 .header {
     color: orange;
     font-weight: bold;
     text-align: center;
     padding: 10px;
+    font-size: 2vh; /* Adjust header font size */
 }
 
 .item {
     text-align: center;
     padding: 10px;
+    font-size: 2vw; /* Adjust item font size */
+}
+
+.no-trucks {
+    grid-column: 1 / -1; /* Span the full width if no trucks */
+    text-align: center;
 }

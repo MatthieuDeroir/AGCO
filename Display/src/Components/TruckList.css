@@ -1,15 +1,15 @@
 .grid-container {
   display: grid;
-  grid-template-columns: 1.5fr 0.75fr 0.5fr; /* Fixe la largeur des colonnes */
-  grid-template-rows: auto repeat(10, 1fr); /* Une rangée pour l'en-tête, puis 9 rangées pour les camions */
-  grid-gap: 0px; /* Espace réduit entre les cellules */
+  grid-template-columns: 1.5fr 0.75fr 0.5fr;
+  grid-template-rows: auto repeat(10, 1fr);
+  grid-gap: 0px;
   background-color: black;
   color: white;
   box-sizing: border-box;
-  max-width: 288px;
-  max-height: 576px;
-  min-width: 288px;
-  min-height: 576px;
+  max-width: 288px; /* Updated width */
+  max-height: 576px; /* Updated height */
+  min-width: 288px; /* Updated width */
+  min-height: 576px; /* Updated height */
   text-transform: uppercase;
 }
 
@@ -17,26 +17,26 @@
   color: orange;
   font-weight: bold;
   text-align: center;
-  height: 25px; /* Hauteur ajustée en fonction de la nouvelle taille */
-  font-size: 18px; /* Taille de police ajustée */
+  height: 20px; /* Adjusted for new dimensions */
+  font-size: 18px; /* Adjusted font size */
 }
 
 .item {
-  height: 50px; /* Hauteur ajustée en fonction de la nouvelle taille */
+  height: 50px; /* Adjusted for new dimensions */
   display: flex;
-  justify-content: center; /* Alignement horizontal */
-  align-items: center; /* Alignement vertical */
-  font-size: 16px; /* Taille de police ajustée */
+  justify-content: center;
+  align-items: center;
+  font-size: 15px; /* Adjusted font size */
   border-top: 1px solid white;
 }
 
 .no-trucks {
   grid-column: 1 / -1;
   text-align: center;
-  font-size: 12px; /* Taille de police ajustée */
+  font-size: 12px; /* Adjusted font size */
 }
 
-.group-item{
+.group-item {
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -66,3 +66,22 @@ exports.updateOne = async (req, res) => {
     }
 };
 
+// CamionController.js
+
+exports.updateMultipleCamion = async (req, res) => {
+    try {
+        const updatedTrucks = [];
+        for (const truckData of req.body) {
+            const camion = await Camion.findByPk(truckData.id);
+            if (!camion) continue;
+
+            const updatedCamion = await camion.update(truckData);
+            updatedTrucks.push(updatedCamion);
+        }
+        res.status(200).send(updatedTrucks);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+
+

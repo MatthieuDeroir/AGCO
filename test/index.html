@@ -161,16 +161,20 @@
                 const trucksList = document.getElementById('trucksList');
                 trucksList.innerHTML = ""; // Clear previous trucks
                 trucks.forEach(truck => {
-                    // Create elements for editable fields
                     const truckDiv = document.createElement('div');
                     truckDiv.innerHTML = `
-            <input type="text" value="${truck.transporteur}" id="transporteur-${truck.id}">
-            <input type="text" value="${truck.immatriculation}" id="immat-${truck.id}">
-            <input type="text" value="${truck.quai}" id="quai-${truck.id}">
-            <button onclick="updateTruck(${truck.id})">Save</button>
+            Transporteur: <input type="text" value="${truck.transporteur}" id="transporteur-${truck.id}">
+            Immatriculation: <input type="text" value="${truck.immatriculation}" id="immat-${truck.id}">
+            Quai: <input type="text" value="${truck.quai}" id="quai-${truck.id}">
         `;
                     trucksList.appendChild(truckDiv);
+
                 });
+                // Add a save all button
+                const saveAllButton = document.createElement('button');
+                saveAllButton.textContent = 'Save All Changes';
+                saveAllButton.onclick = updateAllTrucks;
+                trucksList.appendChild(saveAllButton);
             } else {
                 const data = await response.json();
                 alert('Erreur: ' + data.message);
@@ -180,30 +184,36 @@
         }
     }
 
-    async function updateTruck(truckId) {
-        const transporteur = document.getElementById(`transporteur-${truckId}`).value;
-        const immatriculation = document.getElementById(`immat-${truckId}`).value;
-        const quai = document.getElementById(`quai-${truckId}`).value;
-        const token = localStorage.getItem('token');
+    async function updateAllTrucks() {
+        const updatedTrucks = [];
+        trucks.forEach(truck => {
+            updatedTrucks.push({
+                id: truck.id,
+                transporteur: document.getElementById(`transporteur-${truck.id}`).value,
+                immatriculation: document.getElementById(`immat-${truck.id}`).value,
+                quai: document.getElementById(`quai-${truck.id}`).value
+            });
+        });
 
+        const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`${uri}/camions/update/${truckId}`, {
-                method: 'PUT',
+            const response = await fetch(`${uri}/camions/update-multiple`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + token
                 },
-                body: JSON.stringify({ transporteur, immatriculation, quai })
+                body: JSON.stringify(updatedTrucks)
             });
 
             if (response.ok) {
-                alert('Camion mis à jour avec succès');
+                alert('All trucks updated successfully');
             } else {
                 const data = await response.json();
-                alert('Erreur: ' + data.message);
+                alert('Error: ' + data.message);
             }
         } catch (error) {
-            console.error('Erreur lors de la mise à jour du camion', error);
+            console.error('Error updating trucks', error);
         }
     }
 

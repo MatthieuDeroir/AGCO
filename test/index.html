@@ -161,8 +161,14 @@
                 const trucksList = document.getElementById('trucksList');
                 trucksList.innerHTML = ""; // Clear previous trucks
                 trucks.forEach(truck => {
+                    // Create elements for editable fields
                     const truckDiv = document.createElement('div');
-                    truckDiv.textContent = `ID: ${truck.id}, Transporteur: ${truck.transporteur}, Immatriculation: ${truck.immatriculation}, Quai: ${truck.quai}, Date Appel: ${truck.date_appel}`;
+                    truckDiv.innerHTML = `
+            <input type="text" value="${truck.transporteur}" id="transporteur-${truck.id}">
+            <input type="text" value="${truck.immatriculation}" id="immat-${truck.id}">
+            <input type="text" value="${truck.quai}" id="quai-${truck.id}">
+            <button onclick="updateTruck(${truck.id})">Save</button>
+        `;
                     trucksList.appendChild(truckDiv);
                 });
             } else {
@@ -173,6 +179,34 @@
             console.error('Erreur lors de la récupération des camions', error);
         }
     }
+
+    async function updateTruck(truckId) {
+        const transporteur = document.getElementById(`transporteur-${truckId}`).value;
+        const immatriculation = document.getElementById(`immat-${truckId}`).value;
+        const quai = document.getElementById(`quai-${truckId}`).value;
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`${uri}/camions/update/${truckId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify({ transporteur, immatriculation, quai })
+            });
+
+            if (response.ok) {
+                alert('Camion mis à jour avec succès');
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour du camion', error);
+        }
+    }
+
 
     async function listMedias() {
         try {

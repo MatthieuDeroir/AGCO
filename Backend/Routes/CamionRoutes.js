@@ -11,5 +11,7 @@ router.post('/add', (req, res) => {
 router.get('/', camionsController.getCamions);
 router.post('/remove/:id', camionsController.deleteCamion);
 router.post('/update-list', camionsController.updateCamions);
+router.put('/update/:id', camionsController.updateOne);
+
 
 module.exports = router;

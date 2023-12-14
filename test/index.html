@@ -157,19 +157,20 @@
             });
 
             if (response.ok) {
-                const trucks = await response.json();
+                trucks = await response.json(); // Update the global trucks variable
                 const trucksList = document.getElementById('trucksList');
                 trucksList.innerHTML = ""; // Clear previous trucks
+
                 trucks.forEach(truck => {
                     const truckDiv = document.createElement('div');
                     truckDiv.innerHTML = `
-            Transporteur: <input type="text" value="${truck.transporteur}" id="transporteur-${truck.id}">
-            Immatriculation: <input type="text" value="${truck.immatriculation}" id="immat-${truck.id}">
-            Quai: <input type="text" value="${truck.quai}" id="quai-${truck.id}">
-        `;
+                    Transporteur: <input type="text" value="${truck.transporteur}" id="transporteur-${truck.id}">
+                    Immatriculation: <input type="text" value="${truck.immatriculation}" id="immat-${truck.id}">
+                    Quai: <input type="text" value="${truck.quai}" id="quai-${truck.id}">
+                `;
                     trucksList.appendChild(truckDiv);
-
                 });
+
                 // Add a save all button
                 const saveAllButton = document.createElement('button');
                 saveAllButton.textContent = 'Save All Changes';
@@ -184,8 +185,14 @@
         }
     }
 
+
     async function updateAllTrucks() {
-        const updatedTrucks = [];
+        const updatedTrucks = trucks.map(truck => ({
+            id: truck.id,
+            transporteur: document.getElementById(`transporteur-${truck.id}`).value,
+            immatriculation: document.getElementById(`immat-${truck.id}`).value,
+            quai: document.getElementById(`quai-${truck.id}`).value
+        }));
         trucks.forEach(truck => {
             updatedTrucks.push({
                 id: truck.id,

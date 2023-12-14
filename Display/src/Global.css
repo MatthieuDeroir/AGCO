@@ -1,6 +1,6 @@
 
 @font-face {
-  font-family: "D-DIN-Bold"; /* Nommez la police comme vous le souhaitez, ce nom est utilisé pour la référence */
+  font-family: "Monospaced"; /* Nommez la police comme vous le souhaitez, ce nom est utilisé pour la référence */
   src: local("D-DIN-Bold"),
     /* Nom pour rechercher la police localement sur l'ordinateur de l'utilisateur */
       url("../public/fonts/D-DIN-Bold.otf") format("opentype"); /* Ajustez le chemin selon l'endroit où vous avez placé votre fichier .otf */

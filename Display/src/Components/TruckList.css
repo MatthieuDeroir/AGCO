@@ -27,8 +27,24 @@
   justify-content: center;
   align-items: center;
   font-size: 15px; /* Adjusted font size */
-  border-top: 1px solid white;
+  border-top: 1px solid #666666;
 }
+
+/* Specific styles for the 'Quai' column */
+.quai {
+  font-size: 36px; /* Double the base font size (assuming 18px as base) */
+}
+
+/* Specific styles for the 'Immat' column */
+.immat {
+  font-size: 27px; /* 1.5 times the base font size */
+}
+
+/* Specific styles for the 'Transporteur' column */
+.transporteur {
+  font-size: 21.6px; /* 1.2 times the base font size */
+}
+
 
 .no-trucks {
   grid-column: 1 / -1;

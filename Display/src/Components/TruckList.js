@@ -29,17 +29,17 @@ function TruckList({ trucks, duration }) {
   return (
     <div className="grid-container">
         
-      <div className="header transporteur">Transporteur</div>
-      <div className="header immat">Immat</div>
-      <div className="header quai">Quai</div>
+      <div className="header">Transporteur</div>
+      <div className="header">Immat</div>
+      <div className="header">Quai</div>
 
       {displayedTrucks.length > 0 ? (
         displayedTrucks.map((truck) => (
           <React.Fragment key={truck.id}>
           
-              <div className="item">{truck.transporteur}</div>
-              <div className="item">{truck.immatriculation}</div>
-              <div className="item">{truck.quai}</div>
+              <div className="item transporteur">{truck.transporteur}</div>
+              <div className="item immat">{truck.immatriculation}</div>
+              <div className="item quai">{truck.quai}</div>
             
           </React.Fragment>
         ))

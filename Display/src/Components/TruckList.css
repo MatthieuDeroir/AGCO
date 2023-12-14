@@ -32,12 +32,12 @@
 
 /* Specific styles for the 'Quai' column */
 .quai {
-  font-size: 30px; /* Double the base font size (assuming 18px as base) */
+  font-size: 27px; /* Double the base font size (assuming 18px as base) */
 }
 
 /* Specific styles for the 'Immat' column */
 .immat {
-  font-size: 17px; /* 1.5 times the base font size */
+  font-size: 16px; /* 1.5 times the base font size */
 }
 
 /* Specific styles for the 'Transporteur' column */

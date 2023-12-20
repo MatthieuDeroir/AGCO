@@ -20,7 +20,7 @@ function createWindow() {
         `file://${__dirname}/build/index.html`
     );
 
-    mainWindow.openDevTools(); // Ouvrir les DevTools
+    //mainWindow.openDevTools(); // Ouvrir les DevTools
 
     mainWindow.setAlwaysOnTop(true); // Garder la fenêtre toujours au-dessus
 

@@ -32,7 +32,17 @@
     <h2>Camions</h2>
     <button onclick="listTrucks()">Lister tous les camions</button>
     <div id="trucksList"></div>
+    <h2>Ajouter un Camion</h2>
+    <form id="addTruckForm">
+        <label for="transporteur">Transporteur:</label>
+        <input type="text" id="transporteur" name="transporteur" required>
+        <label for="immatriculation">Immatriculation:</label>
+        <input type="text" id="immatriculation" name="immatriculation" required>
+        <label for="quai">Quai:</label>
+        <input type="text" id="quai" name="quai" required>
+        <button type="button" onclick="addTruck()">Ajouter le camion</button>
 </section>
+
 <section>
     <h2>Médias</h2>
     <button onclick="listMedias()">Lister tous les médias</button>
@@ -70,7 +80,7 @@
 
 
 <script>
-    uri = 'http://192.168.100.172:4000/api';
+    uri = 'http://localhost:4000/api';
 
     async function updateSettings() {
         try {
@@ -144,6 +154,33 @@
             }
         } catch (error) {
             console.error('Erreur lors de la connexion', error);
+        }
+    }
+
+    async function addTruck() {
+        try {
+            const transporteur = document.getElementById('transporteur').value;
+            const immatriculation = document.getElementById('immatriculation').value;
+            const quai = document.getElementById('quai').value;
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(`${uri}/camions`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify({transporteur, immatriculation, quai})
+            });
+
+            if (response.ok) {
+                alert('Camion ajouté avec succès');
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de l’ajout du camion', error);
         }
     }
 

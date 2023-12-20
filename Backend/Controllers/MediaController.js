@@ -2,7 +2,12 @@ const Media = require('../Models/MediaModel');
 const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('fluent-ffmpeg');
-const mime = require('mime');
+let mime;
+import('mime').then(module => {
+    mime = module;
+}).catch(error => {
+    console.error('Error importing mime:', error);
+});
 
 exports.uploadMedia = async (req, res) => {
     try {
@@ -28,8 +33,7 @@ exports.uploadMedia = async (req, res) => {
                     resolve();
                 });
             });
-        }
-        else {
+        } else {
             duration = req.body.duration;
         }
 
@@ -62,12 +66,12 @@ exports.deleteMedia = async (req, res) => {
         if (!media) return res.status(404).send('Media not found');
 
         // Suppression du fichier
-        fs.unlinkSync(path.join(__dirname, '..', '',`./${media.path}` ));
+        fs.unlinkSync(path.join(__dirname, '..', '', `./${media.path}`));
 
 
         // Suppression de l'entrée dans la base de données avec Sequelize
         await media.destroy();
-        res.status(200).send({ message: 'Media deleted successfully' });
+        res.status(200).send({message: 'Media deleted successfully'});
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -77,7 +81,7 @@ exports.deleteMedia = async (req, res) => {
 exports.updateMedia = async (req, res) => {
     try {
         const [updateCount] = await Media.update(req.body, {
-            where: { id: req.params.id }
+            where: {id: req.params.id}
         });
 
         if (updateCount === 0) return res.status(404).send('Media not found');

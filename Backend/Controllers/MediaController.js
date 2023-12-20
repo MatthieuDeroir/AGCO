@@ -2,12 +2,8 @@ const Media = require('../Models/MediaModel');
 const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('fluent-ffmpeg');
-let mime;
-import('mime').then(module => {
-    mime = module;
-}).catch(error => {
-    console.error('Error importing mime:', error);
-});
+const mime = require('mime');
+
 
 exports.uploadMedia = async (req, res) => {
     try {

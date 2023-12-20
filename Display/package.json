@@ -27,7 +27,7 @@
     "react-start": "dotenv -e .env.production craco start",
     "electron-start": "electron .",
     "build": "craco build",
-    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && npm run electron-start\"",
+    "start": "concurrently \"serve -s build\" \"wait-on http://localhost:3000 && npm run electron-start\"",
     "dev": "dotenv -e .env.development craco start"
   },
   "eslintConfig": {

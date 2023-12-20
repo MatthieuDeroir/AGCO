@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "dotenv -e ../.env.production node server.js",
-    "dev": "dotenv -e ../.env.development nodemon server.js"
+    "start": "dotenv -e .env.production node server.js",
+    "dev": "dotenv -e .env.development nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +23,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
-    "mime": "^4.0.1",
+    "mime": "^3.0.0",
     "mongoose": "^7.5.2",
     "multer": "^1.4.5-lts.1",
     "path": "^0.12.7",

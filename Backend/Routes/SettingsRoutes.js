@@ -3,7 +3,7 @@ const router = express.Router();
 const settings = require('../Controllers/SettingsController');
 const auth = require("../Middlewares/Auth");
 
-router.get('/', auth, settings.getSettings);
+router.get('/', settings.getSettings);
 router.put('/', auth, settings.updateSettings);
 
 module.exports = router;

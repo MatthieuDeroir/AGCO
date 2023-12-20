@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 
 router.post('/upload', auth, upload.single('file'), mediaController.uploadMedia);
 
-router.get('/', auth, mediaController.getAllMedia);
+router.get('/', mediaController.getAllMedia);
 
 router.delete('/:id', auth, mediaController.deleteMedia);
 router.put('/:id', auth, mediaController.updateMedia);

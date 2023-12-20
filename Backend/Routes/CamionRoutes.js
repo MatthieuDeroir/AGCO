@@ -9,7 +9,7 @@ router.post('/add', (req, res) => {
     camionsController.addCamion(req, res);
 });
 
-router.get('/', auth, camionsController.getCamions);
+router.get('/', camionsController.getCamions);
 router.post('/remove/:id', auth, camionsController.deleteCamion);
 router.post('/update-list', auth, camionsController.updateCamions);
 router.put('/update/:id', auth, camionsController.updateOne);

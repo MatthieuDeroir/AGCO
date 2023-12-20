@@ -24,7 +24,6 @@ const DebugInfo = ({mediaIndex, intervalDuration, trucks, medias, settings}) => 
     );
 };
 
-
 function App() {
     const [time, setTime] = useState(0);
     const [trucks, setTrucks] = useState([]);

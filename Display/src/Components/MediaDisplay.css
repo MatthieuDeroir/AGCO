@@ -5,7 +5,6 @@
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
 /* To ensure images do not exceed the container */

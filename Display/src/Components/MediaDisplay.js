@@ -11,7 +11,7 @@ import './MediaDisplay.css';
 //     )}}
 // : <div
 function MediaDisplay({media}) {
-    const MEDIA_PATH = 'http://127.0.0.1:4000/api/';
+    const MEDIA_PATH = process.env.REACT_APP_MEDIA_PATH
     return (
         <div className="media-container">
             {media ? (

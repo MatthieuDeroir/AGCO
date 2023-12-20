@@ -11,7 +11,7 @@ import './MediaDisplay.css';
 //     )}}
 // : <div
 function MediaDisplay({media}) {
-    const MEDIA_PATH = process.env.REACT_APP_MEDIA_PATH
+    const MEDIA_PATH = process.env.REACT_APP_MEDIA_PATH;
     return (
         <div className="media-container">
             {media ? (

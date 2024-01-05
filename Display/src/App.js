@@ -44,8 +44,12 @@ function App() {
                 dataService.getMedias(),
                 dataService.getSettings()
             ]);
+
+            // Tri des médias par leur valeur 'order'
+            const sortedMedias = mediasData.sort((a, b) => a.order - b.order);
+
             setTrucks(trucksData);
-            setMedias(mediasData);
+            setMedias(sortedMedias);
             setSettings(settingsData[0]);
             setIntervalDuration(settingsData[0].dureeDefilement * 1000); // Duration for trucks
         } catch (error) {

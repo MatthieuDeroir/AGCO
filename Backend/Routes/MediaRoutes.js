@@ -20,6 +20,7 @@ router.post('/upload', upload.single('file'), mediaController.uploadMedia);
 router.get('/', mediaController.getAllMedia);
 
 router.delete('/:id', auth, mediaController.deleteMedia);
-router.put('/:id', auth, mediaController.updateMedia);
+router.put('/:id/update-order', auth, mediaController.updateMedia);
+
 
 module.exports = router;

@@ -18,6 +18,10 @@ Media.init({
     duration: {
         type: DataTypes.INTEGER,
         defaultValue: 5
+    },
+    order: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
     }
 }, { sequelize, modelName: 'media' });
 

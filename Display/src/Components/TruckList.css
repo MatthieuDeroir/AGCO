@@ -1,0 +1,61 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 1.5fr 0.75fr 0.5fr;
+  grid-template-rows: auto repeat(10, 1fr);
+  grid-gap: 0px;
+  background-color: black;
+  color: white;
+  box-sizing: border-box;
+  max-width: 288px; /* Updated width */
+  max-height: 576px; /* Updated height */
+  min-width: 288px; /* Updated width */
+  min-height: 576px; /* Updated height */
+  text-transform: uppercase;
+}
+
+.header {
+  color: orange;
+  font-weight: bold;
+  text-align: center;
+  height: 20px; /* Adjusted for new dimensions */
+  font-size: 18px; /* Adjusted font size */
+}
+
+.item {
+  height: 50px; /* Adjusted for new dimensions */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px; /* Adjusted font size */
+  border-top: 1px solid #414141;
+}
+
+/* Specific styles for the 'Quai' column */
+.quai {
+  font-size: 27px; /* Double the base font size (assuming 18px as base) */
+}
+
+/* Specific styles for the 'Immat' column */
+.immat {
+  font-size: 16px; /* 1.5 times the base font size */
+}
+
+/* Specific styles for the 'Transporteur' column */
+.transporteur {
+  font-size: 16px; /* 1.2 times the base font size */
+}
+
+
+.no-trucks {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 12px; /* Adjusted font size */
+}
+
+.group-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

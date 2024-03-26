@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test API</title>
+</head>
+
+<body>
+<h1>Test des fonctionnalités de l'API Truck Display</h1>
+
+<section>
+    <h2>Authentification</h2>
+    <form id="signupForm">
+        <label for="signupUsername">Nom d'utilisateur:</label>
+        <input type="text" id="signupUsername" name="username" required>
+        <label for="signupPassword">Mot de passe:</label>
+        <input type="password" id="signupPassword" name="password" required>
+        <button type="button" onclick="signup()">Inscription</button>
+    </form>
+
+    <form id="signinForm">
+        <label for="signinUsername">Nom d'utilisateur:</label>
+        <input type="text" id="signinUsername" name="username" required>
+        <label for="signinPassword">Mot de passe:</label>
+        <input type="password" id="signinPassword" name="password" required>
+        <button type="button" onclick="signin()">Connexion</button>
+    </form>
+</section>
+
+<section>
+    <h2>Camions</h2>
+    <button onclick="listTrucks()">Lister tous les camions</button>
+    <div id="trucksList"></div>
+    <h2>Ajouter un Camion</h2>
+    <form id="addTruckForm">
+        <label for="transporteur">Transporteur:</label>
+        <input type="text" id="transporteur" name="transporteur" required>
+        <label for="immatriculation">Immatriculation:</label>
+        <input type="text" id="immatriculation" name="immatriculation" required>
+        <label for="quai">Quai:</label>
+        <input type="text" id="quai" name="quai" required>
+        <button type="button" onclick="addTruck()">Ajouter le camion</button>
+</section>
+
+<section>
+    <h2>Médias</h2>
+    <button onclick="listMedias()">Lister tous les médias</button>
+    <div id="mediasList"></div>
+    <h2>Upload de Média</h2>
+    <form id="uploadMediaForm" enctype="multipart/form-data">
+        <input type="file" id="file" name="file" required>
+        <label for="duration">Durée d'affichage (en secondes):</label>
+        <input type="number" id="duration" name="duration" required>
+        <button type="button" onclick="uploadMedia()">Uploader le média</button>
+    </form>
+</section>
+
+<section>
+    <h2>Paramètres de veille</h2>
+    <button onclick="getSettings()">Obtenir les paramètres actuels de veille</button>
+    <div id="settingsDisplay"></div>
+</section>
+
+<section>
+    <h2>Modifier les Paramètres de Veille</h2>
+    <form id="settingsForm">
+        <label for="debutVeille">Début Veille:</label>
+        <input type="text" id="debutVeille" name="debutVeille" required>
+
+        <label for="finVeille">Fin Veille:</label>
+        <input type="text" id="finVeille" name="finVeille" required>
+
+        <label for="dureeDefilement">Durée Défilement (en secondes):</label>
+        <input type="number" id="dureeDefilement" name="dureeDefilement" required>
+
+        <button type="button" onclick="updateSettings()">Mettre à jour</button>
+    </form>
+</section>
+
+
+<script>
+    uri = 'http://localhost:4000/api';
+
+    async function updateSettings() {
+        try {
+            const debutVeille = document.getElementById('debutVeille').value;
+            const finVeille = document.getElementById('finVeille').value;
+            const dureeDefilement = document.getElementById('dureeDefilement').value;
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(`${uri}/settings`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify({debutVeille, finVeille, dureeDefilement})
+            });
+
+            if (response.ok) {
+                alert('Paramètres mis à jour avec succès');
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour des paramètres', error);
+        }
+    }
+
+    async function signup() {
+        try {
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+            const response = await fetch(`${uri}/auth/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({username, password})
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                alert('Inscription réussie');
+            } else {
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de l’inscription', error);
+        }
+    }
+
+    async function signin() {
+        try {
+            const username = document.getElementById('signinUsername').value;
+            const password = document.getElementById('signinPassword').value;
+            const response = await fetch(`${uri}/auth/signin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({username, password})
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                alert('Connexion réussie');
+            } else {
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la connexion', error);
+        }
+    }
+
+    async function addTruck() {
+        try {
+            const transporteur = document.getElementById('transporteur').value;
+            const immatriculation = document.getElementById('immatriculation').value;
+            const quai = document.getElementById('quai').value;
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(`${uri}/camions`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify({transporteur, immatriculation, quai})
+            });
+
+            if (response.ok) {
+                alert('Camion ajouté avec succès');
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de l’ajout du camion', error);
+        }
+    }
+
+    async function listTrucks() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${uri}/camions`, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+
+            if (response.ok) {
+                trucks = await response.json(); // Update the global trucks variable
+                const trucksList = document.getElementById('trucksList');
+                trucksList.innerHTML = ""; // Clear previous trucks
+
+                trucks.forEach(truck => {
+                    const truckDiv = document.createElement('div');
+                    truckDiv.innerHTML = `
+                    Transporteur: <input type="text" value="${truck.transporteur}" id="transporteur-${truck.id}">
+                    Immatriculation: <input type="text" value="${truck.immatriculation}" id="immat-${truck.id}">
+                    Quai: <input type="text" value="${truck.quai}" id="quai-${truck.id}">
+                `;
+                    trucksList.appendChild(truckDiv);
+                });
+
+                // Add a save all button
+                const saveAllButton = document.createElement('button');
+                saveAllButton.textContent = 'Save All Changes';
+                saveAllButton.onclick = updateAllTrucks;
+                trucksList.appendChild(saveAllButton);
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des camions', error);
+        }
+    }
+
+
+    async function updateAllTrucks() {
+        const updatedTrucks = trucks.map(truck => ({
+            id: truck.id,
+            transporteur: document.getElementById(`transporteur-${truck.id}`).value,
+            immatriculation: document.getElementById(`immat-${truck.id}`).value,
+            quai: document.getElementById(`quai-${truck.id}`).value
+        }));
+        trucks.forEach(truck => {
+            updatedTrucks.push({
+                id: truck.id,
+                transporteur: document.getElementById(`transporteur-${truck.id}`).value,
+                immatriculation: document.getElementById(`immat-${truck.id}`).value,
+                quai: document.getElementById(`quai-${truck.id}`).value
+            });
+        });
+
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${uri}/camions/update-multiple`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body: JSON.stringify(updatedTrucks)
+            });
+
+            if (response.ok) {
+                alert('All trucks updated successfully');
+            } else {
+                const data = await response.json();
+                alert('Error: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error updating trucks', error);
+        }
+    }
+
+
+    async function listMedias() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${uri}/media-management`, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+
+            if (response.ok) {
+                const medias = await response.json();
+                const mediasList = document.getElementById('mediasList');
+                mediasList.innerHTML = ""; // Clear previous medias
+                medias.forEach(media => {
+                    const mediaDiv = document.createElement('div');
+                    mediaDiv.textContent = `ID: ${media.id}, Type: ${media.type}, Path: ${media.path}`;
+
+                    // Créer un bouton de suppression pour chaque média
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Supprimer';
+                    deleteButton.onclick = function () {
+                        deleteMedia(media.id);
+                    }; // Fonction de suppression à définir
+
+                    mediaDiv.appendChild(deleteButton);
+                    mediasList.appendChild(mediaDiv);
+                });
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des médias', error);
+        }
+    }
+
+    async function deleteMedia(mediaId) {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`${uri}/media-management/${mediaId}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+
+            if (response.ok) {
+                alert('Média supprimé avec succès');
+                listMedias(); // Rafraîchir la liste après la suppression
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression du média', error);
+        }
+    }
+
+
+    async function uploadMedia() {
+        try {
+            const fileInput = document.getElementById('file');
+            const durationInput = document.getElementById('duration');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('duration', durationInput.value);
+            const token = localStorage.getItem('token');
+
+            const response = await fetch(`${uri}/media-management/upload`, {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Upload réussi');
+            } else {
+                const data = await response.json();
+                alert('Erreur: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erreur lors de l’upload du média', error);
+        }
+    }
+</script>
+</body>
+
+</html>

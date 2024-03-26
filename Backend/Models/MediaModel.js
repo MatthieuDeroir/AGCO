@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../Database/Sequelize'); // Adjust the path
 
-class Media extends Model {}
+class Media extends Model { }
 
 Media.init({
     type: {
@@ -18,10 +18,6 @@ Media.init({
     duration: {
         type: DataTypes.INTEGER,
         defaultValue: 5
-    },
-    order: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
     }
 }, { sequelize, modelName: 'media' });
 

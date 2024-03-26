@@ -38,14 +38,11 @@ exports.getSettings = async (req, res) => {
 };
 
 exports.updateSettings = async (req, res) => {
-    console.log('updateSettings', req.body);
     try {
         await Settings.destroy({ where: {} });
         const settings = await Settings.create(req.body);
-        console.log('settings', settings)
         res.status(201).send(settings);
     } catch (error) {
-        console.log('error', error)
         res.status(400).send(error.message);
     }
 }

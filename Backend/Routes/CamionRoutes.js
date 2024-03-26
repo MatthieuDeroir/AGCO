@@ -5,7 +5,6 @@ const auth = require('../Middlewares/Auth');
 
 // Définition des routes pour les camions
 router.post('/add', (req, res) => {
-    console.log("CamionRoutes.add: req.body:", req.headers, req.body);
     camionsController.addCamion(req, res);
 });
 

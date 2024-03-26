@@ -5,17 +5,17 @@ const multer = require('multer');
 const auth = require('../Middlewares/Auth');
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, './media');
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname);
     }
 });
 
 const upload = multer({ storage: storage });
 
-router.post('/upload', upload.single('file'), mediaController.uploadMedia);
+router.post('/upload', upload.single('File'), mediaController.uploadMedia);
 
 router.get('/', mediaController.getAllMedia);
 
